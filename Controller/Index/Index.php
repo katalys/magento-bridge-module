@@ -5,25 +5,16 @@ declare(strict_types=1);
 namespace OneO\Shop\Controller\Index;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\PageFactory;
 
 class Index implements HttpPostActionInterface
 {
+    private JsonFactory $jsonFactory;
 
-    /**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
-     * Constructor
-     *
-     * @param PageFactory $resultPageFactory
-     */
-    public function __construct(PageFactory $resultPageFactory)
+    public function __construct(JsonFactory $jsonFactory)
     {
-        $this->resultPageFactory = $resultPageFactory;
+        $this->jsonFactory = $jsonFactory;
     }
 
     /**
@@ -33,7 +24,10 @@ class Index implements HttpPostActionInterface
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $result = $this->jsonFactory->create();
+        $data = ['message' => 'Hello world!'];
+
+        return $result->setData($data);
     }
 }
 
