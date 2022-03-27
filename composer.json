@@ -1,0 +1,23 @@
+{
+    "name": "oneo/module-shop",
+    "description": "Magento module for 1o Integration",
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "require": {
+        "1oio/composer-1o": "dev-master"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "OneO\\Shop\\": ""
+        }
+    },
+    "repositories":[
+        {
+            "type": "vcs",
+            "url": "git@github.com:webamMarko/composer-1o.git"
+        }
+    ]
+}

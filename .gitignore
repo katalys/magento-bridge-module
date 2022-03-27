@@ -43,3 +43,8 @@
 /var/package/*
 !/var/package/*.xml
 
+vendor/
+
+# Section for IDE gitignores
+.idea
+.vscode
