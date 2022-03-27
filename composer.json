@@ -3,7 +3,7 @@
     "description": "Magento module for 1o Integration",
     "type": "magento2-module",
     "require": {
-        "1oio/composer-1o": "dev-master"
+        "oneo/composer-1o": "dev-master"
     },
     "autoload": {
         "files": [
