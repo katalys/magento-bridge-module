@@ -2,7 +2,6 @@
     "name": "oneo/module-shop",
     "description": "Magento module for 1o Integration",
     "type": "magento2-module",
-    "minimum-stability": "dev",
     "require": {
         "1oio/composer-1o": "dev-master"
     },
