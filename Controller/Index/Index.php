@@ -170,7 +170,7 @@ class Index implements CsrfAwareActionInterface
      */
     public function validateForCsrf(RequestInterface $request): ?bool {
         $authorizationToken = str_replace("Bearer ", "", $request->getHeader('Authorization'));
-        list($version, $purpose, $token, $footer) = explode(".", $authorizationToken);
+        list($version, $purpose, , $footer) = explode(".", $authorizationToken);
 
         if ($version !== self::AUTH_VERSION) {
             return false;
@@ -183,7 +183,7 @@ class Index implements CsrfAwareActionInterface
         $keyId = $this->scopeConfig->getValue("oneo/general/key_id", 'store');
         $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
 
-        $decodedFooter = json_decode(base64_decode($footer));
+        $decodedFooter = json_decode(base64_decode($footer), true);
         $receivedKid = $decodedFooter["kid"];
         if ($receivedKid !== $keyId) {
             return false;

@@ -28,10 +28,9 @@ class OneOGraphQLClient
 
     public function getClient()
     {
-
         $url = $this->scopeConfig->getValue("oneo/general/oneo_url", 'store');
         $keyId = $this->scopeConfig->getValue("oneo/general/key_id", 'store');
-        $sharedSecret = base64_decode($this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store')));
+        $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
 
         $bearerToken = $this->pasetoToken->getSignedToken($sharedSecret, '{"kid":"'.$keyId.'"}');
 
