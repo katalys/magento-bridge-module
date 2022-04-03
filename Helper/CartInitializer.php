@@ -69,7 +69,7 @@ class CartInitializer
         $nameParts = explode(" ", $oneOOrder["shippingName"]);
         $firstname = $nameParts[0];
         unset($nameParts[0]);
-        $lastname = isset($nameParts[1]) ? implode(" ", $nameParts) : "";
+        $lastname = isset($nameParts[1]) ? implode(" ", $nameParts) : "N/A";
 
         $shippingAddress->setFirstname($firstname);
         $shippingAddress->setLastname($lastname);
@@ -93,7 +93,7 @@ class CartInitializer
         $nameParts = explode(" ", $oneOOrder["billingName"]);
         $firstname = $nameParts[0];
         unset($nameParts[0]);
-        $lastname = isset($nameParts[1]) ? implode(" ", $nameParts) : "";
+        $lastname = isset($nameParts[1]) ? implode(" ", $nameParts) : "N/A";
 
         $billingAddress->setFirstname($firstname);
         $billingAddress->setLastname($lastname);
