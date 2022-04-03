@@ -19,6 +19,9 @@ use OneO\Shop\Model\ProcessUpdateTaxAmountsDirective;
 
 class Index implements CsrfAwareActionInterface
 {
+    const AUTH_VERSION = 'v2';
+    const AUTH_PURPOSE = 'local';
+
     const DIRECTIVES_JSON_KEY = 'directives';
     const DIRECTIVE_JSON_KEY = 'directive';
 
@@ -36,6 +39,9 @@ class Index implements CsrfAwareActionInterface
     private ProcessHealthCheckDirective $processHealthCheckDirective;
     private ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective;
     private ProcessCompleteOrderDirective $processCompleteOrderDirective;
+    private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
+    private \Magento\Framework\Encryption\EncryptorInterface $encryptor;
+    private \OneO\Model\PasetoToken $pasetoToken;
 
     /**
      * @param JsonFactory $jsonFactory
@@ -46,6 +52,9 @@ class Index implements CsrfAwareActionInterface
      * @param ProcessUpdateAvailableShippingRatesDirective $processUpdateAvailableShippingRatesDirective
      * @param ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective
      * @param ProcessCompleteOrderDirective $processCompleteOrderDirective
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
+     * @param \OneO\Model\PasetoToken $pasetoToken
      */
     public function __construct(
         JsonFactory $jsonFactory,
@@ -55,7 +64,10 @@ class Index implements CsrfAwareActionInterface
         ProcessImportProductDirective $processImportProductDirective,
         ProcessUpdateAvailableShippingRatesDirective $processUpdateAvailableShippingRatesDirective,
         ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective,
-        ProcessCompleteOrderDirective $processCompleteOrderDirective
+        ProcessCompleteOrderDirective $processCompleteOrderDirective,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\Encryption\EncryptorInterface $encryptor,
+        \OneO\Model\PasetoToken $pasetoToken
     )
     {
         $this->jsonFactory = $jsonFactory;
@@ -66,6 +78,9 @@ class Index implements CsrfAwareActionInterface
         $this->processHealthCheckDirective = $processHealthCheckDirective;
         $this->processUpdateTaxAmountsDirective = $processUpdateTaxAmountsDirective;
         $this->processCompleteOrderDirective = $processCompleteOrderDirective;
+        $this->scopeConfig = $scopeConfig;
+        $this->encryptor = $encryptor;
+        $this->pasetoToken = $pasetoToken;
     }
 
     /**
@@ -139,7 +154,10 @@ class Index implements CsrfAwareActionInterface
     public function createCsrfValidationException(
         RequestInterface $request
     ): ?InvalidRequestException {
-        return null;
+        return new \Magento\Framework\App\Request\InvalidRequestException(
+            new \Magento\Framework\Exception\NotFoundException(__("Not Allowed")),
+            [__("You are not authorized to access this resource.")]
+        );
     }
 
     /**
@@ -151,7 +169,27 @@ class Index implements CsrfAwareActionInterface
      * @return bool|null
      */
     public function validateForCsrf(RequestInterface $request): ?bool {
-        return true;
+        $authorizationToken = str_replace("Bearer ", "", $request->getHeader('Authorization'));
+        list($version, $purpose, $token, $footer) = explode(".", $authorizationToken);
+
+        if ($version !== self::AUTH_VERSION) {
+            return false;
+        }
+
+        if ($purpose !== self::AUTH_PURPOSE) {
+            return false;
+        }
+
+        $keyId = $this->scopeConfig->getValue("oneo/general/key_id", 'store');
+        $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
+
+        $decodedFooter = json_decode(base64_decode($footer));
+        $receivedKid = $decodedFooter["kid"];
+        if ($receivedKid !== $keyId) {
+            return false;
+        }
+
+        return $this->pasetoToken->verifyToken($authorizationToken, $sharedSecret, $footer);
     }
 }
 
