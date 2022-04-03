@@ -3,6 +3,7 @@
 	<default>
 		<oneo>
 			<general>
+				<oneo_url>https://playground.1o.io/graphql</oneo_url>
 				<key_id/>
 				<shared_secret/>
 			</general>

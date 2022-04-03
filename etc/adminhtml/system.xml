@@ -6,15 +6,19 @@
 		</tab>
 		<section id="oneo" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 			<label>OneO</label>
-			<tab>OneO</tab>
+			<tab>oneo</tab>
 			<resource>OneO_Shop::config_oneo_shop</resource>
 			<group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 				<label>General</label>
-				<field id="key_id" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<field id="oneo_url" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>1o Url</label>
+					<comment/>
+				</field>
+				<field id="key_id" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 					<label>Key Id</label>
 					<comment/>
 				</field>
-				<field id="shared_secret" type="obscure" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<field id="shared_secret" type="obscure" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 					<label>Shared Secret</label>
 					<comment/>
 					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
