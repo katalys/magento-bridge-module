@@ -1,9 +1,9 @@
 {
-    "name": "oneo/module-shop",
+    "name": "1o/magento-bridge-module",
     "description": "Magento module for 1o Integration",
     "type": "magento2-module",
     "require": {
-        "oneo/composer-1o": "dev-master"
+        "1o/php-utils": "dev-master"
     },
     "autoload": {
         "files": [
