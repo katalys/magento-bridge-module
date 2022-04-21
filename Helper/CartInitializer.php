@@ -79,7 +79,7 @@ class CartInitializer
         $shippingAddress->setStreet([$oneOOrder["shippingAddressLine_1"], $oneOOrder["shippingAddressLine_2"]]);
         $shippingAddress->setRegion($oneOOrder["shippingAddressSubdivision"]);
 
-        $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"]);
+        $parsedSubdivision = explode("-", $oneOOrder["shippingAddressSubdivisionCode"]);
         $shippingAddress->setRegionCode(array_pop($parsedSubdivision));
         $shippingAddress->setTelephone($oneOOrder["shippingPhone"]);
         // Set shipping method
