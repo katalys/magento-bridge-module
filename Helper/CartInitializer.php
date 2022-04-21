@@ -102,7 +102,9 @@ class CartInitializer
         $billingAddress->setCountryId($oneOOrder["billingAddressCountryCode"]);
         $billingAddress->setStreet([$oneOOrder["billingAddressLine_1"], $oneOOrder["billingAddressLine_2"]]);
         $billingAddress->setRegion($oneOOrder["billingAddressSubdivision"]);
-        $billingAddress->setRegionCode($oneOOrder["billingAddressSubdivisionCode"]);
+
+        $parsedSubdivision = str_replace("US-", "", $oneOOrder["billingAddressSubdivisionCode"]);
+        $billingAddress->setRegionCode($parsedSubdivision);
         $billingAddress->setTelephone($oneOOrder["billingPhone"]);
         $this->billingAddressManagement->assign($quoteId, $billingAddress);
         $billingAddress->setQuote($cart);
