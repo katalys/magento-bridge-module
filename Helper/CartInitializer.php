@@ -78,7 +78,9 @@ class CartInitializer
         $shippingAddress->setCountryId($oneOOrder["shippingAddressCountryCode"]);
         $shippingAddress->setStreet([$oneOOrder["shippingAddressLine_1"], $oneOOrder["shippingAddressLine_2"]]);
         $shippingAddress->setRegion($oneOOrder["shippingAddressSubdivision"]);
-        $shippingAddress->setRegionCode($oneOOrder["shippingAddressSubdivisionCode"]);
+
+        $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"]);
+        $shippingAddress->setRegionCode(array_pop($parsedSubdivision));
         $shippingAddress->setTelephone($oneOOrder["shippingPhone"]);
         // Set shipping method
         $shippingAddress->setShippingMethod($oneOOrder["chosenShippingRateHandle"]);
@@ -103,8 +105,8 @@ class CartInitializer
         $billingAddress->setStreet([$oneOOrder["billingAddressLine_1"], $oneOOrder["billingAddressLine_2"]]);
         $billingAddress->setRegion($oneOOrder["billingAddressSubdivision"]);
 
-        $parsedSubdivision = str_replace("US-", "", $oneOOrder["billingAddressSubdivisionCode"]);
-        $billingAddress->setRegionCode($parsedSubdivision);
+        $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"]);
+        $billingAddress->setRegionCode(array_pop($parsedSubdivision));
         $billingAddress->setTelephone($oneOOrder["billingPhone"]);
         $this->billingAddressManagement->assign($quoteId, $billingAddress);
         $billingAddress->setQuote($cart);
