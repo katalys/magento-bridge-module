@@ -76,7 +76,7 @@ class CartInitializer
         $shippingAddress->setPostcode($oneOOrder["shippingAddressZip"]);
         $shippingAddress->setCity($oneOOrder["shippingAddressCity"]);
         $shippingAddress->setCountryId($oneOOrder["shippingAddressCountryCode"]);
-        $shippingAddress->setStreet([$oneOOrder["shippingAddressLine_1"], $oneOOrder["shippingAddressLine_2"]]);
+        $shippingAddress->setStreet($oneOOrder["shippingAddressLine_1"] . "\n" . $oneOOrder["shippingAddressLine_2"]);
         $shippingAddress->setRegion($oneOOrder["shippingAddressSubdivision"]);
 
         $parsedSubdivision = explode("-", $oneOOrder["shippingAddressSubdivisionCode"]);
@@ -102,7 +102,7 @@ class CartInitializer
         $billingAddress->setPostcode($oneOOrder["billingAddressZip"]);
         $billingAddress->setCity($oneOOrder["billingAddressCity"]);
         $billingAddress->setCountryId($oneOOrder["billingAddressCountryCode"]);
-        $billingAddress->setStreet([$oneOOrder["billingAddressLine_1"], $oneOOrder["billingAddressLine_2"]]);
+        $billingAddress->setStreet($oneOOrder["billingAddressLine_1"] . "\n" . $oneOOrder["billingAddressLine_2"]);
         $billingAddress->setRegion($oneOOrder["billingAddressSubdivision"]);
 
         $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"]);
