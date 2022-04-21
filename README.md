@@ -14,3 +14,16 @@ $ bin/magento setup:upgrade
 # Configuration
 
 Open the Admin interface and go to Stores -> Configuration
+
+# How to update
+
+To update this module run the following command:
+```
+$ composer update
+```
+Note that this will also update any other packages in the project according to composer definition. Depending on the nature of the update the following commands might also be required:
+```
+$ bin/magento setup:upgrade
+$ bin/magento setup:di:compile
+$ bin/magento setup:static-content:deploy
+```
