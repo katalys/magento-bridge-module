@@ -1,5 +1,5 @@
 # magento-1o
-Magento module for 1o integration
+Magento module for 1o shop integration
 
 
 # Installation
