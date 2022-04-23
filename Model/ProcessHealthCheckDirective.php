@@ -11,8 +11,8 @@ class ProcessHealthCheckDirective implements ProcessDirectiveInterface
     /**
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function processDirective($jsonDirective): string
+    public function processDirective($jsonDirective): array
     {
-        return 'ok';
+        return ['status' => 'ok'];
     }
 }

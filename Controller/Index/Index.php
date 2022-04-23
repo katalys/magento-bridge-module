@@ -122,10 +122,13 @@ class Index implements CsrfAwareActionInterface
                 ];
             } else {
                 try {
-                    $processedDirectives[] = [
-                        "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY],
-                        "status" => $processor->processDirective($directive)
-                    ];
+                    $processedDirectives[] = array_merge(
+                        [
+                            "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY]
+                        ],
+                        $processor->processDirective($directive)
+                    );
+
                 } catch (\Exception $e) {
                     $processedDirectives[] = [
                         "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY],

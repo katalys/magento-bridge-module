@@ -47,7 +47,7 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
     /**
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function processDirective($jsonDirective): string
+    public function processDirective($jsonDirective): array
     {
         $arguments = $jsonDirective[self::ARGS_KEY];
         $productUrl = $arguments[self::PRODUCT_URL_KEY];
@@ -58,9 +58,9 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
         $mappedProduct = $productMapper->mapMagentoProductTo1oProduct($product);
 
         $graphQlClient = $this->graphQLClient->getClient();
-        $graphQlClient->createProduct($mappedProduct);
+        $result = $graphQlClient->createProduct($mappedProduct);
 
-        return 'ok';
+        return ['status' => 'ok', 'result' => $result["data"]["product"]["id"] ?? ''];
     }
 
     /**

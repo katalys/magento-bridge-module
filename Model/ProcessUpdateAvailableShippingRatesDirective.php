@@ -45,7 +45,7 @@ class ProcessUpdateAvailableShippingRatesDirective implements ProcessDirectiveIn
     /**
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function processDirective($jsonDirective): string
+    public function processDirective($jsonDirective): array
     {
         $arguments = $jsonDirective[self::ARGS_KEY];
         $orderId = $arguments[self::ORDER_ID_KEY];
@@ -67,7 +67,7 @@ class ProcessUpdateAvailableShippingRatesDirective implements ProcessDirectiveIn
 
         $this->graphQLClient->getClient()->updateShippingRates($orderId, $oneOShippingRates);
 
-        return 'ok';
+        return ['status' => 'ok'];
     }
 
     private function getAvailableShippingMethods($cart)

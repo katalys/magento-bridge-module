@@ -8,5 +8,5 @@ interface ProcessDirectiveInterface
 {
     const ARGS_KEY = 'args';
 
-    public function processDirective($jsonDirective): string;
+    public function processDirective($jsonDirective): array;
 }

@@ -41,7 +41,7 @@ class ProcessUpdateTaxAmountsDirective implements ProcessDirectiveInterface
     /**
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function processDirective($jsonDirective): string
+    public function processDirective($jsonDirective): array
     {
         $arguments = $jsonDirective[self::ARGS_KEY];
         $orderId = $arguments[self::ORDER_ID_KEY];
@@ -78,6 +78,6 @@ class ProcessUpdateTaxAmountsDirective implements ProcessDirectiveInterface
         $graphQlClient = $this->graphQLClient->getClient();
         $graphQlClient->updateTaxes($orderId, $taxes);
 
-        return 'ok';
+        return ['status' => 'ok'];
     }
 }
