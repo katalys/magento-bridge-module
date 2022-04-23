@@ -60,7 +60,7 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
         $graphQlClient = $this->graphQLClient->getClient();
         $result = $graphQlClient->createProduct($mappedProduct);
 
-        return ['status' => 'ok', 'result' => $result["data"]["product"]["id"] ?? ''];
+        return ['status' => 'ok', 'result' => $result["data"]["createProduct"]["id"] ?? ''];
     }
 
     /**
