@@ -34,7 +34,7 @@ class ProductMapper
             "currency" => $this->storeManager->getStore()->getCurrentCurrency()->getCode(),
             "currency_sign" => $this->storeManager->getStore()->getCurrentCurrency()->getCurrencySymbol(),
             "price" => $product->getFinalPrice() * 100,
-            "compare_at_price" => ($product->getFinalPrice() < $product->getPrice()) ? $product->getPrice() * 100 : "",
+            "compare_at_price" => ($product->getFinalPrice() < $product->getPrice()) ? $product->getPrice() * 100 : 0,
             "summary_md" => "",
             "summary_html" => $product->getShortDescription(),
             "external_id" => $product->getSku(),
