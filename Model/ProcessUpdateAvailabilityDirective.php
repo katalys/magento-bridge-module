@@ -12,18 +12,22 @@ class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
     const ORDER_ID_KEY = 'order_id';
     private OneOGraphQLClient $graphQLClient;
     private \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository;
+    private \Magento\Catalog\Model\Product $productModel;
 
     /**
      * @param OneOGraphQLClient $graphQLClient
      * @param \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository
+     * @param \Magento\Catalog\Model\Product $productModel
      */
     public function __construct(
         \OneO\Shop\Model\OneOGraphQLClient $graphQLClient,
-        \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository
+        \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository,
+        \Magento\Catalog\Model\Product $productModel
     )
     {
         $this->graphQLClient = $graphQLClient;
         $this->stockStatusRepository = $stockStatusRepository;
+        $this->productModel = $productModel;
     }
 
     /**
@@ -40,8 +44,10 @@ class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
         $itemAvailabilities = [];
         foreach ($oneOOrder["lineItems"] as $oneOLineItem)
         {
-            $magentoProductId = $oneOLineItem["variantExternalId"] ?? $oneOLineItem["productExternalId"];
+            $magentoProductSku = $oneOLineItem["variantExternalId"] ?? $oneOLineItem["productExternalId"];
+            $magentoProductId = $this->productModel->getIdBySku($magentoProductSku);
             $stockStatus = $this->stockStatusRepository->get($magentoProductId);
+
             $productStockStatus = (int)$stockStatus->getStockStatus();
 
             $itemAvailabilities[] = [
