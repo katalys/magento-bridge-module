@@ -37,6 +37,7 @@ class ProductMapper
             "compare_at_price" => ($product->getFinalPrice() < $product->getPrice()) ? $product->getPrice() * 100 : 0,
             "summary_md" => "",
             "summary_html" => $product->getShortDescription(),
+            "details_html" => $product->getDescription(),
             "external_id" => $product->getSku(),
             "shop_url" => $product->getProductUrl(),
             "images" => $images,
