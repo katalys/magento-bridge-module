@@ -119,8 +119,10 @@ class Index implements CsrfAwareActionInterface
                     break;
                 case self::DIRECTIVE_UPDATE_AVAILABILITIES:
                     $processor = $this->processUpdateAvailabilityDirective;
+                    break;
                 case self::DIRECTIVE_COMPLETE_ORDER:
                     $processor = $this->processCompleteOrderDirective;
+                    break;
             }
 
             if ($processor === null) {

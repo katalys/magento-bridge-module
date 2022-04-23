@@ -59,7 +59,7 @@ class ProcessCompleteOrderDirective implements ProcessDirectiveInterface
         if ($oneOOrder["externalId"]) {
             try {
                 $order = $this->orderRepository->get($oneOOrder["externalId"]);
-                return "exists";
+                return ["status" => "exists"];
             } catch(NoSuchEntityException $e){
                 $shouldCreateOrder = true;
             }
