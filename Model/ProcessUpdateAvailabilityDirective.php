@@ -51,7 +51,7 @@ class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
         }
 
         $graphQlClient = $this->graphQLClient->getClient();
-        $graphQlClient->updateAvailabilities($itemAvailabilities);
+        $graphQlClient->updateAvailabilities($orderId, $itemAvailabilities);
 
         return ['status' => 'ok'];
     }

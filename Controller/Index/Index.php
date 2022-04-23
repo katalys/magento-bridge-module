@@ -14,6 +14,7 @@ use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
 use OneO\Shop\Model\ProcessCompleteOrderDirective;
 use OneO\Shop\Model\ProcessHealthCheckDirective;
 use OneO\Shop\Model\ProcessImportProductDirective;
+use OneO\Shop\Model\ProcessUpdateAvailabilityDirective;
 use OneO\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
 use OneO\Shop\Model\ProcessUpdateTaxAmountsDirective;
 
@@ -29,6 +30,7 @@ class Index implements CsrfAwareActionInterface
     const DIRECTIVE_IMPORT_PRODUCT = 'import_product_from_url';
     const DIRECTIVE_UPDATE_AVAILABLE_SHIPPING_RATES = 'update_available_shipping_rates';
     const DIRECTIVE_UPDATE_TAX_AMOUNTS = 'update_tax_amounts';
+    const DIRECTIVE_UPDATE_AVAILABILITIES = 'update_availability';
     const DIRECTIVE_COMPLETE_ORDER = 'complete_order';
 
     private JsonFactory $jsonFactory;
@@ -42,6 +44,7 @@ class Index implements CsrfAwareActionInterface
     private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
     private \Magento\Framework\Encryption\EncryptorInterface $encryptor;
     private \OneO\Model\PasetoToken $pasetoToken;
+    private ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective;
 
     /**
      * @param JsonFactory $jsonFactory
@@ -52,6 +55,7 @@ class Index implements CsrfAwareActionInterface
      * @param ProcessUpdateAvailableShippingRatesDirective $processUpdateAvailableShippingRatesDirective
      * @param ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective
      * @param ProcessCompleteOrderDirective $processCompleteOrderDirective
+     * @param ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
      * @param \OneO\Model\PasetoToken $pasetoToken
@@ -65,6 +69,7 @@ class Index implements CsrfAwareActionInterface
         ProcessUpdateAvailableShippingRatesDirective $processUpdateAvailableShippingRatesDirective,
         ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective,
         ProcessCompleteOrderDirective $processCompleteOrderDirective,
+        ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Encryption\EncryptorInterface $encryptor,
         \OneO\Model\PasetoToken $pasetoToken
@@ -81,6 +86,7 @@ class Index implements CsrfAwareActionInterface
         $this->scopeConfig = $scopeConfig;
         $this->encryptor = $encryptor;
         $this->pasetoToken = $pasetoToken;
+        $this->processUpdateAvailabilityDirective = $processUpdateAvailabilityDirective;
     }
 
     /**
@@ -111,6 +117,8 @@ class Index implements CsrfAwareActionInterface
                 case self::DIRECTIVE_UPDATE_TAX_AMOUNTS:
                     $processor = $this->processUpdateTaxAmountsDirective;
                     break;
+                case self::DIRECTIVE_UPDATE_AVAILABILITIES:
+                    $processor = $this->processUpdateAvailabilityDirective;
                 case self::DIRECTIVE_COMPLETE_ORDER:
                     $processor = $this->processCompleteOrderDirective;
             }
