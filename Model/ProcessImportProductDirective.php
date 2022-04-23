@@ -82,8 +82,15 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
         if ($finalUrlRewrite && $finalUrlRewrite->getEntityType() === 'product') {
             return $finalUrlRewrite->getEntityId();
         } else {
-            return false;
+            // Url still not found, try to parse admin url pattern
+            $matches = [];
+            preg_match("/catalog\/product\/edit\/id\/(\d+)/", $productUrl, $matches);
+            if (isset($matches[1])) {
+                return $matches[1];
+            }
         }
+
+        return false;
     }
 
     /**
