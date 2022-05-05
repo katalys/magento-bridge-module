@@ -9,6 +9,8 @@ Run the following command to install the package using composer:
 composer require 1o/magento-bridge-module
 bin/magento module:enable OneO_Shop
 bin/magento setup:upgrade
+php bin/magento setup:static-content:deploy
+php bin/magento setup:di:compile
 ```
 # Removal
 
@@ -17,6 +19,8 @@ Run the following command to remove the package using composer:
 bin/magento module:disable OneO_Shop
 composer remove 1o/magento-bridge-module
 composer update
+php bin/magento setup:static-content:deploy
+php bin/magento setup:di:compile
 ```
 
 # Configuration
