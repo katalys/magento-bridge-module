@@ -25,6 +25,7 @@ class Index implements CsrfAwareActionInterface
 
     const DIRECTIVES_JSON_KEY = 'directives';
     const DIRECTIVE_JSON_KEY = 'directive';
+    const DIRECTIVE_ID_JSON_KEY = 'id';
 
     const DIRECTIVE_HEALTH_CHECK = 'health_check';
     const DIRECTIVE_IMPORT_PRODUCT = 'import_product_from_url';
@@ -127,21 +128,24 @@ class Index implements CsrfAwareActionInterface
 
             if ($processor === null) {
                 $processedDirectives[] = [
-                    "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY],
+                    "source_directive" => $directive[self::DIRECTIVE_JSON_KEY],
+                    "source_id" => $directive[self::DIRECTIVE_ID_JSON_KEY],
                     "status" => "Unimplemented directive " . $directive[self::DIRECTIVE_JSON_KEY]
                 ];
             } else {
                 try {
                     $processedDirectives[] = array_merge(
                         [
-                            "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY]
+                            "source_directive" => $directive[self::DIRECTIVE_JSON_KEY],
+                            "source_id" => $directive[self::DIRECTIVE_ID_JSON_KEY]
                         ],
                         $processor->processDirective($directive)
                     );
 
                 } catch (\Exception $e) {
                     $processedDirectives[] = [
-                        "in_response_to" => $directive[self::DIRECTIVE_JSON_KEY],
+                        "source_directive" => $directive[self::DIRECTIVE_JSON_KEY],
+                        "source_id" => $directive[self::DIRECTIVE_ID_JSON_KEY],
                         "status" => $e->getMessage()
                     ];
                 }
@@ -182,6 +186,10 @@ class Index implements CsrfAwareActionInterface
      * @return bool|null
      */
     public function validateForCsrf(RequestInterface $request): ?bool {
+        if (!$request->getHeader('Authorization')) {
+            return false;
+        }
+
         $authorizationToken = str_replace("Bearer ", "", $request->getHeader('Authorization'));
         list($version, $purpose, , $footer) = explode(".", $authorizationToken);
 

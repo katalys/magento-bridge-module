@@ -8,6 +8,7 @@ use Magento\Quote\Model\Cart\Data\CartItemFactory;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
 use OneO\Shop\Model\OneOGraphQLClient;
+use Magento\Quote\Model\QuoteFactory;
 
 class CartInitializer
 {
@@ -20,7 +21,9 @@ class CartInitializer
     private \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement;
     private \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId;
     private \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory;
-
+    private QuoteFactory $quoteFactory;
+    private \Magento\Catalog\Api\ProductRepositoryInterface $productRepository;
+    private \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurableType;
     /**
      * @param \Magento\Quote\Api\GuestCartManagementInterface $guestCartManagement
      * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
@@ -41,7 +44,10 @@ class CartInitializer
         AddProductsToCartService $addProductsToCart,
         \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement,
         \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId,
-        \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory
+        \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory,
+        QuoteFactory $quoteFactory,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurableType
     )
     {
         $this->guestCartManagement = $guestCartManagement;
@@ -53,13 +59,16 @@ class CartInitializer
         $this->billingAddressManagement = $billingAddressManagement;
         $this->quoteIdToMaskedQuoteId = $quoteIdToMaskedQuoteId;
         $this->paymentMethodInterfaceFactory = $paymentMethodInterfaceFactory;
+        $this->quoteFactory = $quoteFactory;
+        $this->productRepository = $productRepository;
+        $this->configurableType = $configurableType;
     }
 
     public function initializeCartFrom1oOrder($oneOOrder)
     {
         $cartId = $this->guestCartManagement->createEmptyCart();
         $quoteId = $this->maskedQuoteIdToQuoteId->execute($cartId);
-        $cart = $this->cartRepository->get($quoteId);
+        $cart = $this->quoteFactory->create()->loadActive($quoteId);
 
         // Set shipping address on cart
         /** @var \Magento\Quote\Api\Data\AddressInterface $shippingAddress */
@@ -79,7 +88,7 @@ class CartInitializer
         $shippingAddress->setStreet($oneOOrder["shippingAddressLine_1"] . "\n" . $oneOOrder["shippingAddressLine_2"]);
         $shippingAddress->setRegion($oneOOrder["shippingAddressSubdivision"]);
 
-        $parsedSubdivision = explode("-", $oneOOrder["shippingAddressSubdivisionCode"]);
+        $parsedSubdivision = explode("-", $oneOOrder["shippingAddressSubdivisionCode"] ?? "");
         $shippingAddress->setRegionCode(array_pop($parsedSubdivision));
         $shippingAddress->setTelephone($oneOOrder["shippingPhone"]);
         // Set shipping method
@@ -92,7 +101,7 @@ class CartInitializer
         $billingAddress = $this->addressInterfaceFactory->create();
         $billingAddress->setEmail($oneOOrder["billingEmail"]);
 
-        $nameParts = explode(" ", $oneOOrder["billingName"]);
+        $nameParts = explode(" ", $oneOOrder["billingName"] ?? "");
         $firstname = $nameParts[0];
         unset($nameParts[0]);
         $lastname = isset($nameParts[1]) ? implode(" ", $nameParts) : "N/A";
@@ -105,7 +114,7 @@ class CartInitializer
         $billingAddress->setStreet($oneOOrder["billingAddressLine_1"] . "\n" . $oneOOrder["billingAddressLine_2"]);
         $billingAddress->setRegion($oneOOrder["billingAddressSubdivision"]);
 
-        $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"]);
+        $parsedSubdivision = explode("-", $oneOOrder["billingAddressSubdivisionCode"] ?? "");
         $billingAddress->setRegionCode(array_pop($parsedSubdivision));
         $billingAddress->setTelephone($oneOOrder["billingPhone"]);
         $this->billingAddressManagement->assign($quoteId, $billingAddress);
@@ -115,20 +124,52 @@ class CartInitializer
         // Add products to cart
         $cartItems = [];
         foreach ($oneOOrder["lineItems"] as $oneOItem) {
-            $cartItemData = [
-                "quantity" => $oneOItem["quantity"]
-            ];
-            if (isset($oneOItem["variantExternalId"])) {
+            if (
+                isset($oneOItem["variantExternalId"])
+                && $oneOItem["variantExternalId"] !== $oneOItem["productExternalId"]
+            ) {
                 $cartItemData["sku"] = $oneOItem["variantExternalId"];
                 $cartItemData["parent_sku"] = $oneOItem["productExternalId"];
+
+                $simpleProduct = $this->productRepository->get($oneOItem["variantExternalId"]);
+                $configurableProduct = $this->productRepository->get($oneOItem["productExternalId"]);
+                $productAttributeOptions = $this->configurableType->getConfigurableAttributesAsArray($configurableProduct);
+
+                $options = [];
+                foreach ($productAttributeOptions as $option) {
+                    $options[$option['attribute_id']] =  $simpleProduct->getData($option['attribute_code']);
+                }
+                $buyRequest = new \Magento\Framework\DataObject([
+                    'super_attribute' => $options,
+                    'qty' => $oneOItem["quantity"],
+                ]);
+
+                $item = $cart->addProduct($configurableProduct, $buyRequest);
+
+                if (isset($oneOItem["price"])) {
+                    $item->setCustomPrice($oneOItem["price"] / 100);
+                    $item->setOriginalCustomPrice($oneOItem["price"] / 100);
+                    $item->getProduct()->setIsSuperMode(true);
+                    $item->save();
+                }
             } else {
-                $cartItemData["sku"] = $oneOItem["productExternalId"];
+                $product = $this->productRepository->get($oneOItem["productExternalId"]);
+
+                $buyRequest = new \Magento\Framework\DataObject(['qty' => $oneOItem["quantity"]]);
+
+                $item = $cart->addProduct($product, $buyRequest);
+                if (isset($oneOItem["price"])) {
+                    $item->setCustomPrice($oneOItem["price"] / 100);
+                    $item->setOriginalCustomPrice($oneOItem["price"] / 100);
+                    $item->getProduct()->setIsSuperMode(true);
+                    $item->save();
+                }
+
             }
 
-            $cartItems[] = (new CartItemFactory())->create($cartItemData);
+            $this->cartRepository->save($cart);
         }
 
-        $this->addProductsToCart->execute($cartId, $cartItems);
         $cart = $this->cartRepository->get($quoteId);
         return $cart;
     }
