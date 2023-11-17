@@ -2,30 +2,64 @@
 
 namespace OneO\Shop\Model;
 
+use OneO\Model\GraphQLFactory;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use OneO\Model\PasetoToken;
+use OneO\Model\KatalysToken;
+use Magento\Framework\Encryption\EncryptorInterface;
+
 class OneOGraphQLClient
 {
-
-    private \OneO\Model\GraphQL $graphQLClient;
-    private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
-    public \OneO\Model\PasetoToken $pasetoToken;
-    private \Magento\Framework\Encryption\EncryptorInterface $encryptor;
+    /**
+     * @var GraphQLFactory
+     */
+    private $graphQLClient;
 
     /**
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \OneO\Model\PasetoToken $pasetoToken
-     * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
+     * @var PasetoToken
+     */
+    public $pasetoToken;
+
+    /**
+     * @var KatalysToken
+     */
+    private $katalysToken;
+
+    /**
+     * @var EncryptorInterface
+     */
+    private $encryptor;
+
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param PasetoToken $pasetoToken
+     * @param EncryptorInterface $encryptor
+     * @param KatalysToken $katalysToken
+     * @param GraphQLFactory $graphQLClient
      */
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \OneO\Model\PasetoToken $pasetoToken,
-        \Magento\Framework\Encryption\EncryptorInterface $encryptor
-    )
-    {
+        ScopeConfigInterface $scopeConfig,
+        PasetoToken $pasetoToken,
+        EncryptorInterface $encryptor,
+        KatalysToken $katalysToken,
+        GraphQLFactory $graphQLClient
+    ) {
         $this->scopeConfig = $scopeConfig;
         $this->pasetoToken = $pasetoToken;
         $this->encryptor = $encryptor;
+        $this->katalysToken = $katalysToken;
+        $this->graphQLClient = $graphQLClient;
     }
 
+    /**
+     * @return GraphQL
+     * @throws \Exception
+     */
     public function getClient()
     {
         $url = $this->scopeConfig->getValue("oneo/general/oneo_url", 'store');
@@ -33,11 +67,14 @@ class OneOGraphQLClient
         $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
 
         $bearerToken = $this->pasetoToken->getSignedToken($sharedSecret, '{"kid":"'.$keyId.'"}');
+        $this->katalysToken->setSecret($sharedSecret)->setKeyId($keyId);
 
         if (!$url) {
             throw new \Exception("Please set OneO Url");
         }
-        return new \OneO\Model\GraphQL($url, $bearerToken);
+        return $this->graphQLClient->create(
+            ['url' => $url, 'bearerToken' => $bearerToken, 'katalysToken' => $this->katalysToken]
+        );
     }
 
 }
