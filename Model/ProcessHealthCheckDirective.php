@@ -13,6 +13,13 @@ class ProcessHealthCheckDirective implements ProcessDirectiveInterface
      */
     public function processDirective($jsonDirective): array
     {
-        return ['status' => 'ok'];
+        return [
+            'status' => 'ok',
+            'data' => [
+                'healthy' => true,
+                'internal_error' => null,
+                'public_error' => null
+            ]
+        ];
     }
 }

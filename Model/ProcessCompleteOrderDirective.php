@@ -69,8 +69,6 @@ class ProcessCompleteOrderDirective implements ProcessDirectiveInterface
 
         if ($shouldCreateOrder) {
             $cart = $this->cartInitializer->initializeCartFrom1oOrder($oneOOrder);
-            $this->totalsCollector->collect($cart);
-
             $magentoOrderId = $this->cartInitializer->completeOrder($cart->getId());
             $order = $this->orderRepository->get($magentoOrderId);
             $order->setStatus("complete")->setState("complete");
