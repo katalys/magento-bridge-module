@@ -33,6 +33,8 @@ class Totals extends MagentoTotals
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Sales\Helper\Admin $adminHelper
      * @param Collection $collectionKatalysQuoteItem
+     * @param ResourceModelQuoteItem $resourceModelQuoteItem
+     * @param ItemFactory $itemFactory
      * @param array $data
      */
     public function __construct(
