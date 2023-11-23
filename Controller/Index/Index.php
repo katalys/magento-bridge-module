@@ -17,35 +17,125 @@ use OneO\Shop\Model\ProcessImportProductDirective;
 use OneO\Shop\Model\ProcessUpdateAvailabilityDirective;
 use OneO\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
 use OneO\Shop\Model\ProcessUpdateTaxAmountsDirective;
+use OneO\Model\PasetoToken;
+use OneO\Model\KatalysToken;
+use Magento\Framework\Encryption\EncryptorInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Index implements CsrfAwareActionInterface
 {
     const AUTH_VERSION = 'v2';
     const AUTH_PURPOSE = 'local';
 
+    /**
+     * @const string
+     */
     const DIRECTIVES_JSON_KEY = 'directives';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_JSON_KEY = 'directive';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_ID_JSON_KEY = 'id';
 
+    /**
+     * @const string
+     */
     const DIRECTIVE_HEALTH_CHECK = 'health_check';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_IMPORT_PRODUCT = 'import_product_from_url';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_UPDATE_AVAILABLE_SHIPPING_RATES = 'update_available_shipping_rates';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_UPDATE_TAX_AMOUNTS = 'update_tax_amounts';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_UPDATE_AVAILABILITIES = 'update_availability';
+
+    /**
+     * @const string
+     */
     const DIRECTIVE_COMPLETE_ORDER = 'complete_order';
 
-    private JsonFactory $jsonFactory;
-    private RequestContentInterface $request;
-    private JsonSerializer $jsonSerializer;
-    private ProcessImportProductDirective $processImportProductDirective;
-    private ProcessUpdateAvailableShippingRatesDirective $processUpdateAvailableShippingRatesDirective;
-    private ProcessHealthCheckDirective $processHealthCheckDirective;
-    private ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective;
-    private ProcessCompleteOrderDirective $processCompleteOrderDirective;
-    private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
-    private \Magento\Framework\Encryption\EncryptorInterface $encryptor;
-    private \OneO\Model\PasetoToken $pasetoToken;
-    private ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective;
+    /**
+     * @var JsonFactory
+     */
+    private $jsonFactory;
+
+    /**
+     * @var RequestContentInterface
+     */
+    private $request;
+
+    /**
+     * @var JsonSerializer
+     */
+    private $jsonSerializer;
+
+    /**
+     * @var ProcessImportProductDirective
+     */
+    private $processImportProductDirective;
+
+    /**
+     * @var ProcessUpdateAvailableShippingRatesDirective
+     */
+    private $processUpdateAvailableShippingRatesDirective;
+
+    /**
+     * @var ProcessHealthCheckDirective
+     */
+    private $processHealthCheckDirective;
+
+    /**
+     * @var ProcessUpdateTaxAmountsDirective
+     */
+    private $processUpdateTaxAmountsDirective;
+
+    /**
+     * @var ProcessCompleteOrderDirective
+     */
+    private $processCompleteOrderDirective;
+
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
+     * @var EncryptorInterface
+     */
+    private $encryptor;
+
+    /**
+     * @var PasetoToken
+     */
+    private $pasetoToken;
+
+    /**
+     * @var KatalysToken
+     */
+    private $katalysToken;
+
+    /**
+     * @var ProcessUpdateAvailabilityDirective
+     */
+    private $processUpdateAvailabilityDirective;
 
     /**
      * @param JsonFactory $jsonFactory
@@ -57,9 +147,9 @@ class Index implements CsrfAwareActionInterface
      * @param ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective
      * @param ProcessCompleteOrderDirective $processCompleteOrderDirective
      * @param ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
-     * @param \OneO\Model\PasetoToken $pasetoToken
+     * @param ScopeConfigInterface $scopeConfig
+     * @param EncryptorInterface $encryptor
+     * @param PasetoToken $pasetoToken
      */
     public function __construct(
         JsonFactory $jsonFactory,
@@ -71,11 +161,11 @@ class Index implements CsrfAwareActionInterface
         ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective,
         ProcessCompleteOrderDirective $processCompleteOrderDirective,
         ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Encryption\EncryptorInterface $encryptor,
-        \OneO\Model\PasetoToken $pasetoToken
-    )
-    {
+        ScopeConfigInterface $scopeConfig,
+        EncryptorInterface $encryptor,
+        PasetoToken $pasetoToken,
+        KatalysToken $katalysToken
+    ) {
         $this->jsonFactory = $jsonFactory;
         $this->request = $request;
         $this->jsonSerializer = $jsonSerializer;
@@ -88,6 +178,7 @@ class Index implements CsrfAwareActionInterface
         $this->encryptor = $encryptor;
         $this->pasetoToken = $pasetoToken;
         $this->processUpdateAvailabilityDirective = $processUpdateAvailabilityDirective;
+        $this->katalysToken = $katalysToken;
     }
 
     /**
@@ -185,7 +276,8 @@ class Index implements CsrfAwareActionInterface
      *
      * @return bool|null
      */
-    public function validateForCsrf(RequestInterface $request): ?bool {
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
         if (!$request->getHeader('Authorization')) {
             return false;
         }
@@ -202,15 +294,39 @@ class Index implements CsrfAwareActionInterface
         }
 
         $keyId = $this->scopeConfig->getValue("oneo/general/key_id", 'store');
-        $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
-
         $decodedFooter = json_decode(base64_decode($footer), true);
         $receivedKid = $decodedFooter["kid"];
         if ($receivedKid !== $keyId) {
             return false;
         }
 
-        return $this->pasetoToken->verifyToken($authorizationToken, $sharedSecret, $footer);
+        return $this->validateTokens($authorizationToken, $footer, $request);
+    }
+
+    /**
+     * @param $authorizationToken
+     * @param $footer
+     * @param RequestInterface $request
+     * @return bool
+     */
+    protected function validateTokens($authorizationToken, $footer, RequestInterface $request): bool
+    {
+        $keyId = $this->scopeConfig->getValue("oneo/general/key_id", 'store');
+        $sharedSecret = $this->encryptor->decrypt($this->scopeConfig->getValue("oneo/general/shared_secret", 'store'));
+
+        if (!$this->pasetoToken->verifyToken($authorizationToken, $sharedSecret, $footer)) {
+            return false;
+        }
+
+        if (!$request->getHeader('x-katalys-token')) {
+            return true;
+        }
+
+        $this->katalysToken->setSecret($sharedSecret)->setKeyId($keyId);
+        if (!$this->katalysToken->verifyToken($request->getHeader('x-katalys-token'), $this->request->getContent())) {
+            return false;
+        }
+        return true;
     }
 }
 
