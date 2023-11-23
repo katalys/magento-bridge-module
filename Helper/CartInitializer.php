@@ -7,49 +7,125 @@ use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\Cart\Data\CartItemFactory;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
-use OneO\Shop\Model\OneOGraphQLClient;
 use Magento\Quote\Model\QuoteFactory;
+use Magento\Quote\Api\GuestCartManagementInterface;
+use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
+use Magento\Quote\Model\ShippingAddressManagementInterface;
+use Magento\Quote\Api\Data\AddressInterfaceFactory;
+use Magento\Quote\Api\BillingAddressManagementInterface;
+use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
+use Magento\Payment\Api\Data\PaymentMethodInterfaceFactory;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use OneO\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
+use OneO\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
 
+/**
+ * CartInitializer class
+ */
 class CartInitializer
 {
-    private \Magento\Quote\Api\GuestCartManagementInterface $guestCartManagement;
-    private \Magento\Quote\Api\CartRepositoryInterface $cartRepository;
-    private \Magento\Quote\Model\MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId;
-    private \Magento\Quote\Model\ShippingAddressManagementInterface $shippingAddressManagement;
-    private \Magento\Quote\Api\Data\AddressInterfaceFactory $addressInterfaceFactory;
-    private AddProductsToCartService $addProductsToCart;
-    private \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement;
-    private \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId;
-    private \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory;
-    private QuoteFactory $quoteFactory;
-    private \Magento\Catalog\Api\ProductRepositoryInterface $productRepository;
-    private \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurableType;
     /**
-     * @param \Magento\Quote\Api\GuestCartManagementInterface $guestCartManagement
-     * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
-     * @param \Magento\Quote\Model\MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId
-     * @param \Magento\Quote\Model\ShippingAddressManagementInterface $shippingAddressManagement
-     * @param \Magento\Quote\Api\Data\AddressInterfaceFactory $addressInterfaceFactory
+     * @var GuestCartManagementInterface
+     */
+    private $guestCartManagement;
+
+    /**
+     * @var CartRepositoryInterface
+     */
+    private $cartRepository;
+
+    /**
+     * @var MaskedQuoteIdToQuoteId
+     */
+    private $maskedQuoteIdToQuoteId;
+
+    /**
+     * @var ShippingAddressManagementInterface
+     */
+    private $shippingAddressManagement;
+
+    /**
+     * @var AddressInterfaceFactory
+     */
+    private $addressInterfaceFactory;
+
+    /**
+     * @var AddProductsToCartService
+     */
+    private $addProductsToCart;
+
+    /**
+     * @var BillingAddressManagementInterface
+     */
+    private $billingAddressManagement;
+
+    /**
+     * @var QuoteIdToMaskedQuoteIdInterface
+     */
+    private $quoteIdToMaskedQuoteId;
+
+    /**
+     * @var PaymentMethodInterfaceFactory
+     */
+    private $paymentMethodInterfaceFactory;
+
+    /**
+     * @var QuoteFactory
+     */
+    private $quoteFactory;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
+    /**
+     * @var Configurable
+     */
+    private $configurableType;
+
+    /**
+     * @var KatalysQuoteItemModelFactory
+     */
+    private $katalysQuoteItemModelFactory;
+
+    /**
+     * @var KatalysQuoteItemResourceModel
+     */
+    private $katalysQuoteItemResourceModel;
+
+    /**
+     * @param GuestCartManagementInterface $guestCartManagement
+     * @param CartRepositoryInterface $cartRepository
+     * @param MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId
+     * @param ShippingAddressManagementInterface $shippingAddressManagement
+     * @param AddressInterfaceFactory $addressInterfaceFactory
      * @param AddProductsToCartService $addProductsToCart
-     * @param \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement
-     * @param \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId
-     * @param \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory
+     * @param BillingAddressManagementInterface $billingAddressManagement
+     * @param QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId
+     * @param PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory
+     * @param QuoteFactory $quoteFactory
+     * @param ProductRepositoryInterface $productRepository
+     * @param Configurable $configurableType
      */
     public function __construct(
-        \Magento\Quote\Api\GuestCartManagementInterface $guestCartManagement,
-        \Magento\Quote\Api\CartRepositoryInterface $cartRepository,
-        \Magento\Quote\Model\MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
-        \Magento\Quote\Model\ShippingAddressManagementInterface $shippingAddressManagement,
-        \Magento\Quote\Api\Data\AddressInterfaceFactory $addressInterfaceFactory,
+        GuestCartManagementInterface $guestCartManagement,
+        CartRepositoryInterface $cartRepository,
+        MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
+        ShippingAddressManagementInterface $shippingAddressManagement,
+        AddressInterfaceFactory $addressInterfaceFactory,
         AddProductsToCartService $addProductsToCart,
-        \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement,
-        \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId,
-        \Magento\Payment\Api\Data\PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory,
+        BillingAddressManagementInterface $billingAddressManagement,
+        QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId,
+        PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory,
         QuoteFactory $quoteFactory,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurableType
-    )
-    {
+        ProductRepositoryInterface $productRepository,
+        Configurable $configurableType,
+        KatalysQuoteItemModelFactory $katalysQuoteItemModelFactory,
+        KatalysQuoteItemResourceModel $katalysQuoteItemResourceModel
+    ) {
         $this->guestCartManagement = $guestCartManagement;
         $this->cartRepository = $cartRepository;
         $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
@@ -62,8 +138,14 @@ class CartInitializer
         $this->quoteFactory = $quoteFactory;
         $this->productRepository = $productRepository;
         $this->configurableType = $configurableType;
+        $this->katalysQuoteItemModelFactory = $katalysQuoteItemModelFactory;
+        $this->katalysQuoteItemResourceModel = $katalysQuoteItemResourceModel;
     }
 
+    /**
+     * @param array $oneOOrder
+     * @return mixed
+     */
     public function initializeCartFrom1oOrder($oneOOrder)
     {
         $cartId = $this->guestCartManagement->createEmptyCart();
@@ -119,18 +201,12 @@ class CartInitializer
         $billingAddress->setTelephone($oneOOrder["billingPhone"]);
         $this->billingAddressManagement->assign($quoteId, $billingAddress);
         $billingAddress->setQuote($cart);
-
-
-        // Add products to cart
-        $cartItems = [];
+        $productData = [];
         foreach ($oneOOrder["lineItems"] as $oneOItem) {
             if (
                 isset($oneOItem["variantExternalId"])
                 && $oneOItem["variantExternalId"] !== $oneOItem["productExternalId"]
             ) {
-                $cartItemData["sku"] = $oneOItem["variantExternalId"];
-                $cartItemData["parent_sku"] = $oneOItem["productExternalId"];
-
                 $simpleProduct = $this->productRepository->get($oneOItem["variantExternalId"]);
                 $configurableProduct = $this->productRepository->get($oneOItem["productExternalId"]);
                 $productAttributeOptions = $this->configurableType->getConfigurableAttributesAsArray($configurableProduct);
@@ -143,37 +219,33 @@ class CartInitializer
                     'super_attribute' => $options,
                     'qty' => $oneOItem["quantity"],
                 ]);
-
-                $item = $cart->addProduct($configurableProduct, $buyRequest);
-
-                if (isset($oneOItem["price"])) {
-                    $item->setCustomPrice($oneOItem["price"] / 100);
-                    $item->setOriginalCustomPrice($oneOItem["price"] / 100);
-                    $item->getProduct()->setIsSuperMode(true);
-                    $item->save();
-                }
+                $cart->addProduct($configurableProduct, $buyRequest);
+                $productData[$configurableProduct->getId()] = [
+                    'price' => $oneOItem['price'],
+                    'qty' => $oneOItem["quantity"]
+                ];
             } else {
                 $product = $this->productRepository->get($oneOItem["productExternalId"]);
-
                 $buyRequest = new \Magento\Framework\DataObject(['qty' => $oneOItem["quantity"]]);
-
-                $item = $cart->addProduct($product, $buyRequest);
-                if (isset($oneOItem["price"])) {
-                    $item->setCustomPrice($oneOItem["price"] / 100);
-                    $item->setOriginalCustomPrice($oneOItem["price"] / 100);
-                    $item->getProduct()->setIsSuperMode(true);
-                    $item->save();
-                }
-
+                $cart->addProduct($product, $buyRequest);
+                $productData[$product->getId()] = [
+                    'price' => $oneOItem['price'],
+                    'qty' => $oneOItem["quantity"]
+                ];
             }
-
+            $cart->collectTotals();
             $this->cartRepository->save($cart);
         }
 
         $cart = $this->cartRepository->get($quoteId);
+        $this->saveKatalysQuoteItem($productData, $cart);
         return $cart;
     }
 
+    /**
+     * @param int $quoteId
+     * @return mixed
+     */
     public function completeOrder($quoteId)
     {
         $maskedId = $this->quoteIdToMaskedQuoteId->execute($quoteId);
@@ -184,4 +256,28 @@ class CartInitializer
         return $this->guestCartManagement->placeOrder($maskedId);
     }
 
+    /**
+     * @param array $productData
+     * @param $cart
+     * @return void
+     */
+    protected function saveKatalysQuoteItem(array $productData, $cart)
+    {
+        foreach ($cart->getAllItems() as $item) {
+            $productId = $item->getProduct()->getId();
+            if (!isset($productData[$productId])) {
+                continue;
+            }
+
+            if (!isset($productData[$productId]['qty']) || !isset($productData[$productId]['price'])) {
+                continue;
+            }
+            $model = $this->katalysQuoteItemModelFactory->create();
+            $model->setQuoteId($cart->getId());
+            $model->setQuoteItemId($item->getItemId());
+            $model->setPrice($productData[$productId]['price'] / 100);
+            $model->setQty($productData[$productId]['qty']);
+            $this->katalysQuoteItemResourceModel->save($model);
+        }
+    }
 }
