@@ -2,12 +2,10 @@
 
 namespace OneO\Shop\Helper;
 
-use Magento\Framework\Api\ExtensibleDataObjectConverter;
+use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
-use Magento\Quote\Model\Cart\Data\CartItemFactory;
-use Magento\Quote\Model\Cart\ShippingMethodConverter;
-use Magento\Quote\Model\Quote\TotalsCollector;
 use Magento\Quote\Model\QuoteFactory;
+use Magento\Quote\Model\Quote;
 use Magento\Quote\Api\GuestCartManagementInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
@@ -18,8 +16,11 @@ use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
 use Magento\Payment\Api\Data\PaymentMethodInterfaceFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\SalesRule\Model\Coupon;
 use OneO\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
 use OneO\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
+use Magento\SalesRule\Api\CouponRepositoryInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * CartInitializer class
@@ -97,6 +98,21 @@ class CartInitializer
     private $katalysQuoteItemResourceModel;
 
     /**
+     * @var CouponRepositoryInterface
+     */
+    private $couponRepository;
+
+    /**
+     * @var SearchCriteriaBuilderFactory
+     */
+    private $searchCriteriaBuilderFactory;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param GuestCartManagementInterface $guestCartManagement
      * @param CartRepositoryInterface $cartRepository
      * @param MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId
@@ -109,6 +125,11 @@ class CartInitializer
      * @param QuoteFactory $quoteFactory
      * @param ProductRepositoryInterface $productRepository
      * @param Configurable $configurableType
+     * @param KatalysQuoteItemModelFactory $katalysQuoteItemModelFactory
+     * @param KatalysQuoteItemResourceModel $katalysQuoteItemResourceModel
+     * @param CouponRepositoryInterface $couponRepository
+     * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
+     * @param LoggerInterface $logger
      */
     public function __construct(
         GuestCartManagementInterface $guestCartManagement,
@@ -124,7 +145,10 @@ class CartInitializer
         ProductRepositoryInterface $productRepository,
         Configurable $configurableType,
         KatalysQuoteItemModelFactory $katalysQuoteItemModelFactory,
-        KatalysQuoteItemResourceModel $katalysQuoteItemResourceModel
+        KatalysQuoteItemResourceModel $katalysQuoteItemResourceModel,
+        CouponRepositoryInterface $couponRepository,
+        SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory,
+        LoggerInterface $logger
     ) {
         $this->guestCartManagement = $guestCartManagement;
         $this->cartRepository = $cartRepository;
@@ -140,6 +164,9 @@ class CartInitializer
         $this->configurableType = $configurableType;
         $this->katalysQuoteItemModelFactory = $katalysQuoteItemModelFactory;
         $this->katalysQuoteItemResourceModel = $katalysQuoteItemResourceModel;
+        $this->couponRepository = $couponRepository;
+        $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -150,6 +177,7 @@ class CartInitializer
     {
         $cartId = $this->guestCartManagement->createEmptyCart();
         $quoteId = $this->maskedQuoteIdToQuoteId->execute($cartId);
+        /** @var Quote $cart */
         $cart = $this->quoteFactory->create()->loadActive($quoteId);
 
         // Set shipping address on cart
@@ -233,6 +261,7 @@ class CartInitializer
                     'qty' => $oneOItem["quantity"]
                 ];
             }
+            $this->addCouponFreeShipping($cart);
             $cart->collectTotals();
             $this->cartRepository->save($cart);
         }
@@ -254,6 +283,35 @@ class CartInitializer
         // TODO: This is a dummy payment to let the order pass - should be replaced with OneO specific information
         $quote->getPayment()->importData(['method' => 'checkmo']);
         return $this->guestCartManagement->placeOrder($maskedId);
+    }
+
+    /**
+     * @param Quote $cart
+     * @return bool
+     */
+    protected function addCouponFreeShipping(Quote $cart): bool
+    {
+        try {
+            $searchCriteriaBuilder = $this->searchCriteriaBuilderFactory->create();
+            $searchCriteria = $searchCriteriaBuilder->addFilter(
+                Coupon::KEY_CODE,
+                'KS_%',
+                'like'
+            )->create();
+            $coupons = $this->couponRepository->getList($searchCriteria);
+            if ($coupons->getTotalCount() <= 0) {
+                return false;
+            }
+            /** @var Coupon $item */
+            foreach ($coupons->getItems() as $item) {
+                $cart->setCouponCode($item->getCode());
+                $cart->collectTotals();
+            }
+            return true;
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+            return false;
+        }
     }
 
     /**

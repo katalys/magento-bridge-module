@@ -2,4 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="\Magento\Sales\Block\Adminhtml\Order\Totals" type="\OneO\Shop\Block\Adminhtml\Order\Totals"/>
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="katalys_one_shop_plugin_quote_model_couponmanagment"
+                type="OneO\Shop\Plugin\Quote\Model\CouponManagementPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\CouponPost">
+        <plugin name="katalys_one_shop_plugin_checkout_controller_cart_couponpost"
+                type="OneO\Shop\Plugin\Checkout\Controller\Cart\CouponPostPlugin"/>
+    </type>
 </config>
