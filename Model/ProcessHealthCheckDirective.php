@@ -29,7 +29,8 @@ class ProcessHealthCheckDirective implements ProcessDirectiveInterface
                     "update_tax_amounts",
                     "update_availability",
                     "complete_order",
-                    "import_product_from_url"
+                    "import_product_from_url",
+                    "product_information_sync"
                 ]
             ]
         ];
