@@ -14,6 +14,7 @@ use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
 use OneO\Shop\Model\ProcessCompleteOrderDirective;
 use OneO\Shop\Model\ProcessHealthCheckDirective;
 use OneO\Shop\Model\ProcessImportProductDirective;
+use OneO\Shop\Model\ProcessProductInformationSyncDirective;
 use OneO\Shop\Model\ProcessUpdateAvailabilityDirective;
 use OneO\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
 use OneO\Shop\Model\ProcessUpdateTaxAmountsDirective;
@@ -22,9 +23,19 @@ use OneO\Model\KatalysToken;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
+/**
+ * Index class
+ */
 class Index implements CsrfAwareActionInterface
 {
+    /**
+     * @const string
+     */
     const AUTH_VERSION = 'v2';
+
+    /**
+     * @const string
+     */
     const AUTH_PURPOSE = 'local';
 
     /**
@@ -71,6 +82,11 @@ class Index implements CsrfAwareActionInterface
      * @const string
      */
     const DIRECTIVE_COMPLETE_ORDER = 'complete_order';
+
+    /**
+     * @const string
+     */
+    const DIRECTIVE_PRODUCT_INFORMATION_SYNC = 'product_information_sync';
 
     /**
      * @var JsonFactory
@@ -138,6 +154,11 @@ class Index implements CsrfAwareActionInterface
     private $processUpdateAvailabilityDirective;
 
     /**
+     * @var ProcessProductInformationSyncDirective
+     */
+    private $processProductInformationSyncDirective;
+
+    /**
      * @param JsonFactory $jsonFactory
      * @param RequestContentInterface $request
      * @param JsonSerializer $jsonSerializer
@@ -147,9 +168,11 @@ class Index implements CsrfAwareActionInterface
      * @param ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective
      * @param ProcessCompleteOrderDirective $processCompleteOrderDirective
      * @param ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective
+     * @param ProcessProductInformationSyncDirective $processProductInformationSyncDirective
      * @param ScopeConfigInterface $scopeConfig
      * @param EncryptorInterface $encryptor
      * @param PasetoToken $pasetoToken
+     * @param KatalysToken $katalysToken
      */
     public function __construct(
         JsonFactory $jsonFactory,
@@ -161,6 +184,7 @@ class Index implements CsrfAwareActionInterface
         ProcessUpdateTaxAmountsDirective $processUpdateTaxAmountsDirective,
         ProcessCompleteOrderDirective $processCompleteOrderDirective,
         ProcessUpdateAvailabilityDirective $processUpdateAvailabilityDirective,
+        ProcessProductInformationSyncDirective $processProductInformationSyncDirective,
         ScopeConfigInterface $scopeConfig,
         EncryptorInterface $encryptor,
         PasetoToken $pasetoToken,
@@ -179,6 +203,7 @@ class Index implements CsrfAwareActionInterface
         $this->pasetoToken = $pasetoToken;
         $this->processUpdateAvailabilityDirective = $processUpdateAvailabilityDirective;
         $this->katalysToken = $katalysToken;
+        $this->processProductInformationSyncDirective = $processProductInformationSyncDirective;
     }
 
     /**
@@ -214,6 +239,9 @@ class Index implements CsrfAwareActionInterface
                     break;
                 case self::DIRECTIVE_COMPLETE_ORDER:
                     $processor = $this->processCompleteOrderDirective;
+                    break;
+                case self::DIRECTIVE_PRODUCT_INFORMATION_SYNC:
+                    $processor = $this->processProductInformationSyncDirective;
                     break;
             }
 

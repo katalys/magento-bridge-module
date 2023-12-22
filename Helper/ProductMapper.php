@@ -1,26 +1,37 @@
 <?php
 
-declare(strict_types=1);
-
 namespace OneO\Shop\Helper;
 
+use Magento\Store\Model\StoreManagerInterface;
+use Magento\Catalog\Api\Data\ProductInterface;
+
+/**
+ * ProductMapper class
+ */
 class ProductMapper
 {
-    private \Magento\Store\Model\StoreManagerInterface $storeManager;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
 
+    /**
+     * @var array
+     */
     private $positionToMagentoId = [];
 
     /**
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param StoreManagerInterface $storeManager
      */
-    public function __construct(
-        \Magento\Store\Model\StoreManagerInterface $storeManager
-    )
-    {
+    public function __construct(StoreManagerInterface $storeManager) {
         $this->storeManager = $storeManager;
     }
 
-    public function mapMagentoProductTo1oProduct(\Magento\Catalog\Api\Data\ProductInterface $product)
+    /**
+     * @param ProductInterface $product
+     * @return array
+     */
+    public function mapMagentoProductTo1oProduct(ProductInterface $product)
     {
         $images = [];
 
@@ -87,6 +98,10 @@ class ProductMapper
         return $oneOVariants;
     }
 
+    /**
+     * @param $options
+     * @return array
+     */
     public function mapMagentoOptionsTo1oOptions($options) {
         $oneOOptions = [];
         if ($options) {
