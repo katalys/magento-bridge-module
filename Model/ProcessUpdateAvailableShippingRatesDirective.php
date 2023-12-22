@@ -6,35 +6,61 @@ namespace OneO\Shop\Model;
 
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
-use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
 use OneO\Shop\Api\Data\ProcessDirectiveInterface;
+use OneO\Shop\Helper\CartInitializer;
+use OneO\Shop\Model\OneOGraphQLClient;
 
+/**
+ * ProcessUpdateAvailableShippingRatesDirective class
+ */
 class ProcessUpdateAvailableShippingRatesDirective implements ProcessDirectiveInterface
 {
+    /**
+     * @var string
+     */
     const ORDER_ID_KEY = 'order_id';
-    private OneOGraphQLClient $graphQLClient;
-    private TotalsCollector $totalsCollector;
-    private ExtensibleDataObjectConverter $dataObjectConverter;
-    private ShippingMethodConverter $shippingMethodConverter;
-    private \OneO\Shop\Helper\CartInitializer $cartInitializer;
 
     /**
-     * @param OneOGraphQLClient $graphQLClient
+     * @var OneOGraphQLClient
+     */
+    private $graphQLClient;
+
+    /**
+     * @var TotalsCollector
+     */
+    private $totalsCollector;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    private $dataObjectConverter;
+
+    /**
+     * @var ShippingMethodConverter
+     */
+    private $shippingMethodConverter;
+
+    /**
+     * @var CartInitializer
+     */
+    private $cartInitializer;
+
+    /**
+     * @param \OneO\Shop\Model\OneOGraphQLClient $graphQLClient
      * @param TotalsCollector $totalsCollector
      * @param ExtensibleDataObjectConverter $dataObjectConverter
      * @param ShippingMethodConverter $shippingMethodConverter
-     * @param \OneO\Shop\Helper\CartInitializer $cartInitializer
+     * @param CartInitializer $cartInitializer
      */
     public function __construct(
-        \OneO\Shop\Model\OneOGraphQLClient $graphQLClient,
+        OneOGraphQLClient $graphQLClient,
         TotalsCollector $totalsCollector,
         ExtensibleDataObjectConverter $dataObjectConverter,
         ShippingMethodConverter $shippingMethodConverter,
-        \OneO\Shop\Helper\CartInitializer $cartInitializer
-    )
-    {
+        CartInitializer $cartInitializer
+    ) {
         $this->graphQLClient = $graphQLClient;
         $this->totalsCollector = $totalsCollector;
         $this->dataObjectConverter = $dataObjectConverter;

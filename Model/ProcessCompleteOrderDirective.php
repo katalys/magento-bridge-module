@@ -11,31 +11,59 @@ use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
 use OneO\Shop\Api\Data\ProcessDirectiveInterface;
+use OneO\Shop\Helper\CartInitializer;
+use Magento\Sales\Api\OrderRepositoryInterface;
+use OneO\Shop\Model\OneOGraphQLClient;
 
+/**
+ * ProcessCompleteOrderDirective class
+ */
 class ProcessCompleteOrderDirective implements ProcessDirectiveInterface
 {
+    /**
+     * @const string
+     */
     const ORDER_ID_KEY = 'order_id';
-    private OneOGraphQLClient $graphQLClient;
-    private TotalsCollector $totalsCollector;
-    private ExtensibleDataObjectConverter $dataObjectConverter;
-    private \OneO\Shop\Helper\CartInitializer $cartInitializer;
-    private \Magento\Sales\Api\OrderRepositoryInterface $orderRepository;
 
     /**
-     * @param OneOGraphQLClient $graphQLClient
+     * @var OneOGraphQLClient
+     */
+    private $graphQLClient;
+
+    /**
+     * @var TotalsCollector
+     */
+    private $totalsCollector;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    private $dataObjectConverter;
+
+    /**
+     * @var CartInitializer
+     */
+    private $cartInitializer;
+
+    /**
+     * @var OrderRepositoryInterface
+     */
+    private $orderRepository;
+
+    /**
+     * @param \OneO\Shop\Model\OneOGraphQLClient $graphQLClient
      * @param TotalsCollector $totalsCollector
      * @param ExtensibleDataObjectConverter $dataObjectConverter
-     * @param \OneO\Shop\Helper\CartInitializer $cartInitializer
-     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param CartInitializer $cartInitializer
+     * @param OrderRepositoryInterface $orderRepository
      */
     public function __construct(
-        \OneO\Shop\Model\OneOGraphQLClient $graphQLClient,
+        OneOGraphQLClient $graphQLClient,
         TotalsCollector $totalsCollector,
         ExtensibleDataObjectConverter $dataObjectConverter,
-        \OneO\Shop\Helper\CartInitializer $cartInitializer,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
-    )
-    {
+        CartInitializer $cartInitializer,
+        OrderRepositoryInterface $orderRepository
+    ) {
         $this->graphQLClient = $graphQLClient;
         $this->totalsCollector = $totalsCollector;
         $this->dataObjectConverter = $dataObjectConverter;
@@ -50,34 +78,23 @@ class ProcessCompleteOrderDirective implements ProcessDirectiveInterface
     {
         $arguments = $jsonDirective[self::ARGS_KEY];
         $orderId = $arguments[self::ORDER_ID_KEY];
-
         $graphQlClient = $this->graphQLClient->getClient();
         $oneOOrder = $graphQlClient->getOrderDetails($orderId);
-
-        $shouldCreateOrder = false;
-
         if ($oneOOrder["externalId"]) {
             try {
                 $order = $this->orderRepository->get($oneOOrder["externalId"]);
                 return ["status" => "exists"];
-            } catch(NoSuchEntityException $e){
-                $shouldCreateOrder = true;
-            }
-        } else {
-            $shouldCreateOrder = true;
+            } catch(NoSuchEntityException $e) {}
         }
 
-        if ($shouldCreateOrder) {
-            $cart = $this->cartInitializer->initializeCartFrom1oOrder($oneOOrder);
-            $magentoOrderId = $this->cartInitializer->completeOrder($cart->getId());
-            $order = $this->orderRepository->get($magentoOrderId);
-            $order->setStatus("complete")->setState("complete");
-            $this->orderRepository->save($order);
+        $cart = $this->cartInitializer->initializeCartFrom1oOrder($oneOOrder);
+        $magentoOrderId = $this->cartInitializer->completeOrder($cart->getId());
+        $order = $this->orderRepository->get($magentoOrderId);
+        $order->setStatus("complete")->setState("complete");
+        $this->orderRepository->save($order);
 
-            $graphQlClient = $this->graphQLClient->getClient();
-            $graphQlClient->completeOrder($orderId, $magentoOrderId);
-        }
-
+        $graphQlClient = $this->graphQLClient->getClient();
+        $graphQlClient->completeOrder($orderId, $magentoOrderId);
         return ['status' => 'ok'];
     }
 }
