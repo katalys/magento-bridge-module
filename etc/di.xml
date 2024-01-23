@@ -2,6 +2,22 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="\Magento\Sales\Block\Adminhtml\Order\Totals" type="\OneO\Shop\Block\Adminhtml\Order\Totals"/>
+    <preference for="OneO\Shop\Api\RecordOrderInterface" type="OneO\Shop\Model\RecordOrder"/>
+    <preference for="OneO\Shop\Api\RecordDatesInterface" type="OneO\Shop\Model\RecordDates"/>
+    <preference for="OneO\Shop\Api\QueueDatesInterface" type="OneO\Shop\Model\QueueDates"/>
+    <preference for="OneO\Shop\Api\UpdateOrderStatusInterface" type="OneO\Shop\Model\UpdateOrderStatus"/>
+    <preference for="OneO\Shop\Api\SendProductCatalogInterface" type="OneO\Shop\Model\SendProductCatalog"/>
+    <preference for="OneO\Shop\Api\SendCatalogRulesInterface" type="OneO\Shop\Model\SendCatalogRules"/>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="record-order" xsi:type="object">OneO\Shop\Console\RecordOrderCommand</item>
+                <item name="queue-order" xsi:type="object">OneO\Shop\Console\QueueOrderCommand</item>
+                <item name="record-dates" xsi:type="object">OneO\Shop\Console\RecordDatesCommand</item>
+                <item name="queue-dates" xsi:type="object">OneO\Shop\Console\QueueDatesCommand</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Magento\Quote\Model\CouponManagement">
         <plugin name="katalys_one_shop_plugin_quote_model_couponmanagment"
                 type="OneO\Shop\Plugin\Quote\Model\CouponManagementPlugin"/>

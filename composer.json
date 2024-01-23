@@ -3,7 +3,10 @@
     "description": "Magento module for 1o Integration",
     "type": "magento2-module",
     "require": {
-        "1o/php-utils": "dev-master"
+        "1o/php-utils": "dev-master",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*"
     },
     "autoload": {
         "files": [
@@ -16,7 +19,7 @@
     "repositories":[
         {
             "type": "vcs",
-            "url": "git@github.com:webamMarko/composer-1o.git"
+            "url": "git@github.com:katalys/composer-1o.git"
         }
     ]
 }

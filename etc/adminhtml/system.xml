@@ -1,17 +1,17 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 	<system>
-		<tab id="oneo" translate="label" sortOrder="999">
-			<label>1o</label>
+		<tab id="katalys_tab" translate="label" sortOrder="999">
+			<label>Katalys</label>
 		</tab>
 		<section id="oneo" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-			<label>1o</label>
-			<tab>oneo</tab>
+			<label>Shop</label>
+			<tab>katalys_tab</tab>
 			<resource>OneO_Shop::config_oneo_shop</resource>
 			<group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 				<label>General</label>
 				<field id="oneo_url" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-					<label>1o Url</label>
+					<label>Katalys Url</label>
 					<comment/>
 				</field>
 				<field id="key_id" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
@@ -26,5 +26,33 @@
 				</field>
 			</group>
 		</section>
+        <section id="katalys_ad" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Advertiser Integration</label>
+            <tab>katalys_tab</tab>
+            <resource>OneO_Shop::config_oneo_ad</resource>
+            <group id="configs" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="includejs" translate="label" type="select" sortOrder="1" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Enable JavaScript</label>
+                    <comment>Include the JavaScript on this website (required).</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="siteid" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Site ID</label>
+                    <comment>If present, this will override the server's hostname</comment>
+                </field>
+                <field id="usecron" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Use Cron</label>
+                    <comment>If Yes, will use cron system for order reporting</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="trigger" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Trigger on Order Status</label>
+                    <comment>When to queue/send the data about the order</comment>
+                    <source_model>RevOffers\AdvertiserIntegration\Model\Config\Source\TriggerOptions::toOptionArray</source_model>
+                </field>
+            </group>
+        </section>
 	</system>
 </config>

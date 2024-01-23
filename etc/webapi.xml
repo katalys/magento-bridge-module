@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/revoffers/record/order/:id" method="POST">
+        <service class="OneO\Shop\Api\RecordOrderInterface" method="send" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/revoffers/record/dates" method="POST">
+        <service class="OneO\Shop\Api\RecordDatesInterface" method="send" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/revoffers/queue/dates" method="POST">
+        <service class="OneO\Shop\Api\QueueDatesInterface" method="queue" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/revoffers/update/order_status/:id" method="POST">
+        <service class="OneO\Shop\Api\UpdateOrderStatusInterface" method="update" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/revoffers/send/product_catalog" method="POST">
+        <service class="OneO\Shop\Api\SendProductCatalogInterface" method="send" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/revoffers/send/catalog_rules" method="POST">
+        <service class="OneO\Shop\Api\SendCatalogRulesInterface" method="send" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

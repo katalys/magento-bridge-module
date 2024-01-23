@@ -48,3 +48,5 @@ vendor/
 # Section for IDE gitignores
 .idea
 .vscode
+.env
+bkp/

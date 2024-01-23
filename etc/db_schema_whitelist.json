@@ -1,0 +1,35 @@
+{
+    "katalys_quote_item": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "quote_item_id": true,
+            "qty": true,
+            "price": true
+        },
+        "index": {
+            "KATALYS_QUOTE_ITEM_QUOTE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "KATALYS_QUOTE_ITEM_QUOTE_ID_QUOTE_ENTITY_ID": true,
+            "KATALYS_QUOTE_ITEM_QUOTE_ITEM_ID_QUOTE_ITEM_ITEM_ID": true
+        }
+    },
+    "katalys_ad_queue": {
+        "column": {
+            "_id": true,
+            "order_id": true,
+            "event": true,
+            "added": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "katalys_visitor_lookup": true
+        }
+    }
+}

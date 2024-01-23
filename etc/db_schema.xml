@@ -23,4 +23,17 @@
             <column name="quote_id"/>
         </index>
     </table>
+    <table name="katalys_ad_queue" engine="innodb" comment="Katalys advertiser queue">
+        <column xsi:type="int" name="_id" unsigned="true" nullable="false" identity="true" comment="Task ID"/>
+        <column xsi:type="varchar" name="order_id" length="150" nullable="false" comment="Order ID"/>
+        <column xsi:type="varchar" name="event" length="150" nullable="true" comment="Event Source"/>
+        <column xsi:type="timestamp" name="added" nullable="false" on_update="false" default="CURRENT_TIMESTAMP"
+                comment="Time added to queue"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="_id"/>
+        </constraint>
+    </table>
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="varchar" name="katalys_visitor_lookup" nullable="true" length="255" comment="Katalys Visitor Lookup"/>
+    </table>
 </schema>

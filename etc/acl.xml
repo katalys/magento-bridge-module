@@ -6,7 +6,8 @@
 				<resource id="Magento_Backend::stores">
 					<resource id="Magento_Backend::stores_settings">
 						<resource id="Magento_Config::config">
-							<resource id="OneO_Shop::config_oneo_shop" title="oneo"/>
+							<resource id="OneO_Shop::config_oneo_shop" title="Katalys Shop"/>
+                            <resource id="OneO_Shop::config_oneo_ad" title="Katalys AD"/>
 						</resource>
 					</resource>
 				</resource>

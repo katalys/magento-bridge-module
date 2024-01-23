@@ -4,25 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ae40b02ced9ee43bcd560cb71b693f1",
+    "content-hash": "f06ad812382534b3803311fe0dbab78c",
     "packages": [
         {
             "name": "1o/php-utils",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:webamMarko/composer-1o.git",
-                "reference": "08904eb73c5a9149d9d3eb74aa5e67e4dda86e21"
+                "url": "https://github.com/katalys/composer-1o.git",
+                "reference": "02d34136d511b8f2e967ead6f7cf68b29dc230bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webamMarko/composer-1o/zipball/08904eb73c5a9149d9d3eb74aa5e67e4dda86e21",
-                "reference": "08904eb73c5a9149d9d3eb74aa5e67e4dda86e21",
+                "url": "https://api.github.com/repos/katalys/composer-1o/zipball/02d34136d511b8f2e967ead6f7cf68b29dc230bb",
+                "reference": "02d34136d511b8f2e967ead6f7cf68b29dc230bb",
                 "shasum": ""
             },
             "require": {
                 "gmostafa/php-graphql-client": "^1.13",
-                "paragonie/paseto": "^1.1"
+                "paragonie/constant_time_encoding": "^2.6",
+                "paragonie/corner": "^2.0",
+                "paragonie/easy-ecc": "^1.0",
+                "paragonie/paseto": "^1.1",
+                "paragonie/sodium_compat": "^1.20"
             },
             "default-branch": true,
             "type": "library",
@@ -33,10 +37,153 @@
             },
             "description": "Composer package for 1o integration",
             "support": {
-                "source": "https://github.com/webamMarko/composer-1o/tree/master",
-                "issues": "https://github.com/webamMarko/composer-1o/issues"
+                "source": "https://github.com/katalys/composer-1o/tree/master",
+                "issues": "https://github.com/katalys/composer-1o/issues"
             },
-            "time": "2022-04-13T18:04:13+00:00"
+            "time": "2023-11-23T01:22:29+00:00"
+        },
+        {
+            "name": "defuse/php-encryption",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "f53396c2d34225064647a05ca76c1da9d99e5828"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/f53396c2d34225064647a05ca76c1da9d99e5828",
+                "reference": "f53396c2d34225064647a05ca76c1da9d99e5828",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": ">= 2",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5|^6|^7|^8|^9|^10",
+                "yoast/phpunit-polyfills": "^2.0.0"
+            },
+            "bin": [
+                "bin/generate-defuse-key"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Defuse\\Crypto\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "taylor@defuse.ca",
+                    "homepage": "https://defuse.ca/"
+                },
+                {
+                    "name": "Scott Arciszewski",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "authenticated encryption",
+                "cipher",
+                "crypto",
+                "cryptography",
+                "encrypt",
+                "encryption",
+                "openssl",
+                "security",
+                "symmetric key cryptography"
+            ],
+            "support": {
+                "issues": "https://github.com/defuse/php-encryption/issues",
+                "source": "https://github.com/defuse/php-encryption/tree/v2.4.0"
+            },
+            "time": "2023-06-19T06:10:36+00:00"
+        },
+        {
+            "name": "fgrosse/phpasn1",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fgrosse/PHPASN1.git",
+                "reference": "42060ed45344789fb9f21f9f1864fc47b9e3507b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fgrosse/PHPASN1/zipball/42060ed45344789fb9f21f9f1864fc47b9e3507b",
+                "reference": "42060ed45344789fb9f21f9f1864fc47b9e3507b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "~2.0",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+            },
+            "suggest": {
+                "ext-bcmath": "BCmath is the fallback extension for big integer calculations",
+                "ext-curl": "For loading OID information from the web if they have not bee defined statically",
+                "ext-gmp": "GMP is the preferred extension for big integer calculations",
+                "phpseclib/bcmath_compat": "BCmath polyfill for servers where neither GMP nor BCmath is available"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FG\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Friedrich Große",
+                    "email": "friedrich.grosse@gmail.com",
+                    "homepage": "https://github.com/FGrosse",
+                    "role": "Author"
+                },
+                {
+                    "name": "All contributors",
+                    "homepage": "https://github.com/FGrosse/PHPASN1/contributors"
+                }
+            ],
+            "description": "A PHP Framework that allows you to encode and decode arbitrary ASN.1 structures using the ITU-T X.690 Encoding Rules.",
+            "homepage": "https://github.com/FGrosse/PHPASN1",
+            "keywords": [
+                "DER",
+                "asn.1",
+                "asn1",
+                "ber",
+                "binary",
+                "decoding",
+                "encoding",
+                "x.509",
+                "x.690",
+                "x509",
+                "x690"
+            ],
+            "support": {
+                "issues": "https://github.com/fgrosse/PHPASN1/issues",
+                "source": "https://github.com/fgrosse/PHPASN1/tree/v2.5.0"
+            },
+            "abandoned": true,
+            "time": "2022-12-19T11:08:26+00:00"
         },
         {
             "name": "gmostafa/php-graphql-client",
@@ -105,22 +252,22 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.4.2",
+            "version": "7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4"
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ac1ec1cd9b5624694c3a40be801d94137afb12b4",
-                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/41042bc7ab002487b876a0683fc8dce04ddce104",
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^1.5",
-                "guzzlehttp/psr7": "^1.8.3 || ^2.1",
+                "guzzlehttp/promises": "^1.5.3 || ^2.0.1",
+                "guzzlehttp/psr7": "^1.9.1 || ^2.5.1",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
                 "symfony/deprecation-contracts": "^2.2 || ^3.0"
@@ -129,10 +276,11 @@
                 "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
+                "bamarni/composer-bin-plugin": "^1.8.2",
                 "ext-curl": "*",
-                "php-http/client-integration-tests": "^3.0",
-                "phpunit/phpunit": "^8.5.5 || ^9.3.5",
+                "php-http/client-integration-tests": "dev-master#2c025848417c1135031fdf9c728ee53d0a7ceaee as 3.0.999",
+                "php-http/message-factory": "^1.1",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
             "suggest": {
@@ -142,8 +290,9 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "7.4-dev"
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
                 }
             },
             "autoload": {
@@ -209,7 +358,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.2"
+                "source": "https://github.com/guzzle/guzzle/tree/7.8.1"
             },
             "funding": [
                 {
@@ -225,38 +374,37 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-20T14:16:28+00:00"
+            "time": "2023-12-03T20:35:24+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da"
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/bbff78d96034045e58e13dedd6ad91b5d1253223",
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4 || ^5.1"
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5-dev"
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
                 }
             },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\Promise\\": "src/"
                 }
@@ -293,7 +441,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.1"
+                "source": "https://github.com/guzzle/promises/tree/2.0.2"
             },
             "funding": [
                 {
@@ -309,26 +457,26 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-22T20:56:57+00:00"
+            "time": "2023-12-03T20:19:20+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.2.1",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2"
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/c94a94f120803a18554c1805ef2e539f8285f9a2",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/45b30f99ac27b5ca93cb4831afe16285f57b8221",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
                 "ralouphie/getallheaders": "^3.0"
             },
             "provide": {
@@ -336,17 +484,18 @@
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
+                "bamarni/composer-bin-plugin": "^1.8.2",
                 "http-interop/http-factory-tests": "^0.9",
-                "phpunit/phpunit": "^8.5.8 || ^9.3.10"
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
                 }
             },
             "autoload": {
@@ -408,7 +557,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.2.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.6.2"
             },
             "funding": [
                 {
@@ -424,20 +573,96 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-20T21:55:58+00:00"
+            "time": "2023-12-03T20:05:35+00:00"
         },
         {
-            "name": "paragonie/constant_time_encoding",
-            "version": "v2.5.0",
+            "name": "mdanter/ecc",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "9229e15f2e6ba772f0c55dd6986c563b937170a8"
+                "url": "https://github.com/phpecc/phpecc.git",
+                "reference": "34e2eec096bf3dcda814e8f66dd91ae87a2db7cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/9229e15f2e6ba772f0c55dd6986c563b937170a8",
-                "reference": "9229e15f2e6ba772f0c55dd6986c563b937170a8",
+                "url": "https://api.github.com/repos/phpecc/phpecc/zipball/34e2eec096bf3dcda814e8f66dd91ae87a2db7cd",
+                "reference": "34e2eec096bf3dcda814e8f66dd91ae87a2db7cd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gmp": "*",
+                "fgrosse/phpasn1": "^2.0",
+                "php": "^7.0||^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0||^8.0||^9.0",
+                "squizlabs/php_codesniffer": "^2.0",
+                "symfony/yaml": "^2.6|^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mdanter\\Ecc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matyas Danter",
+                    "homepage": "http://matejdanter.com/",
+                    "role": "Author"
+                },
+                {
+                    "name": "Thibaud Fabre",
+                    "email": "thibaud@aztech.io",
+                    "homepage": "http://aztech.io",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Thomas Kerin",
+                    "email": "afk11@users.noreply.github.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "PHP Elliptic Curve Cryptography library",
+            "homepage": "https://github.com/phpecc/phpecc",
+            "keywords": [
+                "Diffie",
+                "ECDSA",
+                "Hellman",
+                "curve",
+                "ecdh",
+                "elliptic",
+                "nistp192",
+                "nistp224",
+                "nistp256",
+                "nistp384",
+                "nistp521",
+                "phpecc",
+                "secp256k1",
+                "secp256r1"
+            ],
+            "support": {
+                "issues": "https://github.com/phpecc/phpecc/issues",
+                "source": "https://github.com/phpecc/phpecc/tree/v1.0.0"
+            },
+            "time": "2021-01-16T19:42:14+00:00"
+        },
+        {
+            "name": "paragonie/constant_time_encoding",
+            "version": "v2.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/constant_time_encoding.git",
+                "reference": "58c3f47f650c94ec05a151692652a868995d2938"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/58c3f47f650c94ec05a151692652a868995d2938",
+                "reference": "58c3f47f650c94ec05a151692652a868995d2938",
                 "shasum": ""
             },
             "require": {
@@ -491,7 +716,107 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2022-01-17T05:32:27+00:00"
+            "time": "2022-06-14T06:56:20+00:00"
+        },
+        {
+            "name": "paragonie/corner",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/corner.git",
+                "reference": "f222adc1da32547e20a3c5007f4a711b0cf633d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/corner/zipball/f222adc1da32547e20a3c5007f4a711b0cf633d0",
+                "reference": "f222adc1da32547e20a3c5007f4a711b0cf633d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7",
+                "psalm/plugin-phpunit": "<1",
+                "vimeo/psalm": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ParagonIE\\Corner\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com"
+                }
+            ],
+            "description": "Generic PHP Exceptions and Errors, made user-friendly.",
+            "support": {
+                "issues": "https://github.com/paragonie/corner/issues",
+                "source": "https://github.com/paragonie/corner/tree/v2.0.1"
+            },
+            "time": "2020-01-20T00:57:57+00:00"
+        },
+        {
+            "name": "paragonie/easy-ecc",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/easy-ecc.git",
+                "reference": "53d6a1c484e6e61e59e6c78718f5ffaf1be76f72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/easy-ecc/zipball/53d6a1c484e6e61e59e6c78718f5ffaf1be76f72",
+                "reference": "53d6a1c484e6e61e59e6c78718f5ffaf1be76f72",
+                "shasum": ""
+            },
+            "require": {
+                "defuse/php-encryption": "^2.1",
+                "ext-gmp": "*",
+                "mdanter/ecc": "^1",
+                "paragonie/constant_time_encoding": "^2.1",
+                "paragonie/sodium_compat": "^1.16",
+                "php": "^7.1|^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7|^8|^9",
+                "vimeo/psalm": "^1|^3|^4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload-shim.php"
+                ],
+                "psr-4": {
+                    "ParagonIE\\EasyECC\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "Development Team"
+                }
+            ],
+            "description": "Usabiliy Wrapper for mdanter/ecc",
+            "support": {
+                "email": "security@paragonie.com",
+                "issues": "https://github.com/paragonie/ionizer/issues",
+                "source": "https://github.com/paragonie/ionizer"
+            },
+            "time": "2022-06-02T20:18:08+00:00"
         },
         {
             "name": "paragonie/paseto",
@@ -592,16 +917,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.17.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e"
+                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/ac994053faac18d386328c91c7900f930acadf1e",
-                "reference": "ac994053faac18d386328c91c7900f930acadf1e",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
+                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
                 "shasum": ""
             },
             "require": {
@@ -672,22 +997,22 @@
             ],
             "support": {
                 "issues": "https://github.com/paragonie/sodium_compat/issues",
-                "source": "https://github.com/paragonie/sodium_compat/tree/v1.17.1"
+                "source": "https://github.com/paragonie/sodium_compat/tree/v1.20.0"
             },
-            "time": "2022-03-23T19:32:04+00:00"
+            "time": "2023-04-30T00:54:53+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.37",
+            "version": "2.0.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "c812fbb4d6b4d7f30235ab7298a12f09ba13b37c"
+                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/c812fbb4d6b4d7f30235ab7298a12f09ba13b37c",
-                "reference": "c812fbb4d6b4d7f30235ab7298a12f09ba13b37c",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d",
+                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d",
                 "shasum": ""
             },
             "require": {
@@ -702,7 +1027,8 @@
                 "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
                 "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
                 "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
-                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations.",
+                "ext-xml": "Install the XML extension to load XML formatted public keys."
             },
             "type": "library",
             "autoload": {
@@ -767,7 +1093,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.37"
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.46"
             },
             "funding": [
                 {
@@ -783,25 +1109,25 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-04T04:57:45+00:00"
+            "time": "2023-12-29T01:52:43+00:00"
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -821,7 +1147,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP clients",
@@ -833,27 +1159,27 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
+                "source": "https://github.com/php-fig/http-client"
             },
-            "time": "2020-06-29T06:28:15+00:00"
+            "time": "2023-09-23T14:17:50+00:00"
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+                "reference": "e616d01114759c4c489f93b099585439f795fe35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -873,7 +1199,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for PSR-7 HTTP message factories",
@@ -888,31 +1214,31 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
+                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
             },
-            "time": "2019-04-30T12:38:16+00:00"
+            "time": "2023-04-10T20:10:41+00:00"
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -941,9 +1267,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -991,7 +1317,7 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
@@ -1038,7 +1364,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.2"
             },
             "funding": [
                 {
@@ -1065,7 +1391,11 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*"
+    },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

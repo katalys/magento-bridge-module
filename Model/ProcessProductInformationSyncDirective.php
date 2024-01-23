@@ -16,18 +16,18 @@ class ProcessProductInformationSyncDirective implements ProcessDirectiveInterfac
      */
     protected $productRepository;
 
-  /**
-   * @var StoreManagerInterface
-   */
+    /**
+     * @var StoreManagerInterface
+     */
     protected $storeManager;
 
-  /**
-   * @param ProductRepositoryInterface $productRepository
-   * @param StoreManagerInterface $storeManager
-   */
+    /**
+     * @param ProductRepositoryInterface $productRepository
+     * @param StoreManagerInterface $storeManager
+     */
     public function __construct(
-      ProductRepositoryInterface $productRepository,
-      StoreManagerInterface $storeManager
+        ProductRepositoryInterface $productRepository,
+        StoreManagerInterface $storeManager
     ) {
         $this->productRepository = $productRepository;
         $this->storeManager = $storeManager;
@@ -45,31 +45,34 @@ class ProcessProductInformationSyncDirective implements ProcessDirectiveInterfac
             return [];
         }
 
-        $result = [];
+        $response = [];
         foreach ($arguments['product_ids'] as $productId) {
+            $result = [];
             if (!isset($productId['external_id'])) {
                 continue;
             }
 
-            $product = $this->productRepository->getById($productId['external_id']);
+            $product = $this->productRepository->get($productId['external_id']);
             $result['id'] = $productId['id'];
-            if (!isset($productId['variants'])) {
+            if (!isset($productId['variants']) || !$productId['variants']) {
                 $result['price'] = $product->getFinalPrice() * 100;
                 $result['compare_at_price'] = ($product->getFinalPrice() < $product->getPrice()) ? $product->getPrice() * 100 : 0;
                 $result['currency'] = $this->storeManager->getStore()->getCurrentCurrency()->getCode();
+                $response['data'][] = $result;
                 continue;
             }
             foreach ($productId['variants'] as $variant) {
                 $variantId = $variant['external_id'];
-                $variantObject = $this->productRepository->getById($variantId);
+                $variantObject = $this->productRepository->get($variantId);
                 $result['variants'][] = [
-                    'id' => $productId['id'],
+                    'id' => $variant['id'],
                     'price' => $variantObject->getFinalPrice() * 100,
                     "currency" => $this->storeManager->getStore()->getCurrentCurrency()->getCode(),
                     'compare_at_price' => ($variantObject->getFinalPrice() < $variantObject->getPrice()) ? $variantObject->getPrice() * 100 : 0
                 ];
             }
+            $response['data'][] = $result;
         }
-        return $result;
+        return $response;
     }
 }
