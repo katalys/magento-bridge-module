@@ -49,7 +49,7 @@ class ProductMapper
             "summary_md" => "",
             "summary_html" => $product->getShortDescription(),
             "details_html" => $product->getDescription(),
-            "external_id" => $product->getSku(),
+            "external_id" => $product->getId(),
             "shop_url" => $product->getProductUrl(),
             "images" => $images,
         ];

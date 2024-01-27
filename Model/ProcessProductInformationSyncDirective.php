@@ -52,7 +52,7 @@ class ProcessProductInformationSyncDirective implements ProcessDirectiveInterfac
                 continue;
             }
 
-            $product = $this->productRepository->get($productId['external_id']);
+            $product = $this->productRepository->getById($productId['external_id']);
             $result['id'] = $productId['id'];
             if (!isset($productId['variants']) || !$productId['variants']) {
                 $result['price'] = $product->getFinalPrice() * 100;
@@ -63,7 +63,7 @@ class ProcessProductInformationSyncDirective implements ProcessDirectiveInterfac
             }
             foreach ($productId['variants'] as $variant) {
                 $variantId = $variant['external_id'];
-                $variantObject = $this->productRepository->get($variantId);
+                $variantObject = $this->productRepository->getById($variantId);
                 $result['variants'][] = [
                     'id' => $variant['id'],
                     'price' => $variantObject->getFinalPrice() * 100,
