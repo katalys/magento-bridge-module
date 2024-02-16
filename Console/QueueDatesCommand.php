@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use OneO\Shop\Util\DatesSenderFactory;
 
 /**
  * QueueDatesCommand class
@@ -19,16 +20,16 @@ class QueueDatesCommand extends Command
     const OFFSET_ARGUMENT = 'offset';
 
     /**
-     * @var \OneO\Shop\Util\DatesSenderFactory
+     * @var DatesSenderFactory
      */
     protected $datesSenderFactory;
 
     /**
-     * @param \OneO\Shop\Util\DatesSenderFactory $datesSenderFactory
-     * @param $name
+     * @param DatesSenderFactory $datesSenderFactory
+     * @param string $name
      */
     public function __construct(
-        \OneO\Shop\Util\DatesSenderFactory $datesSenderFactory,
+        DatesSenderFactory $datesSenderFactory,
         $name = null
     ) {
         $this->datesSenderFactory = $datesSenderFactory;
@@ -40,8 +41,10 @@ class QueueDatesCommand extends Command
      * @param OutputInterface $output
      * @return void
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(
+        InputInterface $input,
+        OutputInterface $output
+    ) {
         $fromArg = $input->getArgument(self::FROM_ARGUMENT);
         $toArg = $input->getArgument(self::TO_ARGUMENT);
         $limitArg = $input->getArgument(self::LIMIT_ARGUMENT);
