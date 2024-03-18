@@ -1,7 +1,9 @@
 {
     "name": "1o/magento-bridge-module",
-    "description": "Magento module for 1o Integration",
+    "description": "Magento module for Katalys Integration",
     "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "MIT",
     "require": {
         "1o/php-utils": "dev-master",
         "ext-json": "*",
