@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model\ResourceModel\KatalysQuoteItem;
+namespace Katalys\Shop\Model\ResourceModel\KatalysQuoteItem;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
@@ -15,8 +15,8 @@ class Collection extends AbstractCollection
     public function _construct()
     {
         $this->_init(
-            \OneO\Shop\Model\KatalysQuoteItem::class,
-            \OneO\Shop\Model\ResourceModel\KatalysQuoteItem::class
+            \Katalys\Shop\Model\KatalysQuoteItem::class,
+            \Katalys\Shop\Model\ResourceModel\KatalysQuoteItem::class
         );
     }
 }

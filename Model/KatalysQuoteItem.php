@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\Framework\Model\AbstractModel;
 
@@ -16,6 +16,6 @@ class KatalysQuoteItem extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init(\OneO\Shop\Model\ResourceModel\KatalysQuoteItem::class);
+        $this->_init(\Katalys\Shop\Model\ResourceModel\KatalysQuoteItem::class);
     }
 }

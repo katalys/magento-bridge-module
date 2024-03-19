@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util;
+namespace Katalys\Shop\Util;
 
 /**
  * DatesSender class
@@ -22,12 +22,12 @@ class DatesSender
     protected $orderCollectionFactory;
 
     /**
-     * @var \OneO\Shop\Util\OrderPackagerFactory
+     * @var \Katalys\Shop\Util\OrderPackagerFactory
      */
     protected $orderPackagerFactory;
 
     /**
-     * @var \OneO\Shop\Model\QueueEntryFactory
+     * @var \Katalys\Shop\Model\QueueEntryFactory
      */
     protected $queueEntryFactory;
 
@@ -35,13 +35,13 @@ class DatesSender
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      * @param OrderPackagerFactory $orderPackagerFactory
-     * @param \OneO\Shop\Model\QueueEntryFactory $queueEntryFactory
+     * @param \Katalys\Shop\Model\QueueEntryFactory $queueEntryFactory
      */
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
-        \OneO\Shop\Util\OrderPackagerFactory $orderPackagerFactory,
-        \OneO\Shop\Model\QueueEntryFactory $queueEntryFactory
+        \Katalys\Shop\Util\OrderPackagerFactory $orderPackagerFactory,
+        \Katalys\Shop\Model\QueueEntryFactory $queueEntryFactory
     ) {
         $this->logger = $logger;
         $this->orderCollectionFactory = $orderCollectionFactory;
@@ -84,14 +84,14 @@ class DatesSender
             $map[$id] = '?';
             $params = $orderPackager->getParams($id, true);
             $params['action'] = 'restapi_conv';
-            $req = \OneO\Shop\Util\Curl::post($params);
+            $req = \Katalys\Shop\Util\Curl::post($params);
             $req->callback = function ($out, $info) use ($id, &$map, &$done) {
                 $done++;
                 $map[$id] = in_array($info['http_code'], [200, 204]);
             };
         }
 
-        $rollingCurlInstance = \OneO\Shop\Util\Curl::getDefault();
+        $rollingCurlInstance = \Katalys\Shop\Util\Curl::getDefault();
         while ($rollingCurlInstance->tick()) {
             if ($timeout > 0 && $startTime + $timeout < microtime(true)) {
                 $breakFlag = true;
@@ -134,7 +134,7 @@ class DatesSender
             $i++;
             $orderId = $order->getId();
             $ids[] = $orderId;
-            /** @var \OneO\Shop\Model\QueueEntry $entry */
+            /** @var \Katalys\Shop\Model\QueueEntry $entry */
             $entry = $this->queueEntryFactory->create();
             $entry->setData('order_id', $orderId);
             $entry->save();

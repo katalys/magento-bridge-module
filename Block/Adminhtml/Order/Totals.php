@@ -1,12 +1,12 @@
 <?php
 
-namespace OneO\Shop\Block\Adminhtml\Order;
+namespace Katalys\Shop\Block\Adminhtml\Order;
 
 use Magento\Quote\Model\ResourceModel\Quote\Item as ResourceModelQuoteItem;
 use Magento\Quote\Model\Quote\ItemFactory;
 use Magento\Quote\Model\Quote\Item;
 use Magento\Sales\Block\Adminhtml\Order\Totals as MagentoTotals;
-use OneO\Shop\Model\ResourceModel\KatalysQuoteItem\Collection;
+use Katalys\Shop\Model\ResourceModel\KatalysQuoteItem\Collection;
 
 /**
  * Class Totals

@@ -1,12 +1,12 @@
 <?php
 
-namespace OneO\Shop\Console;
+namespace Katalys\Shop\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use OneO\Shop\Util\DatesSenderFactory;
+use Katalys\Shop\Util\DatesSenderFactory;
 
 /**
  * QueueDatesCommand class

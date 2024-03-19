@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Helper;
+namespace Katalys\Shop\Helper;
 
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
@@ -17,8 +17,8 @@ use Magento\Payment\Api\Data\PaymentMethodInterfaceFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\SalesRule\Model\Coupon;
-use OneO\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
-use OneO\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
+use Katalys\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
+use Katalys\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
 use Magento\SalesRule\Api\CouponRepositoryInterface;
 use Psr\Log\LoggerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model\ResourceModel\QueueEntry;
+namespace Katalys\Shop\Model\ResourceModel\QueueEntry;
 
 /**
  * Collection class
@@ -28,8 +28,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     public function _construct()
     {
         $this->_init(
-            \OneO\Shop\Model\QueueEntry::class,
-            \OneO\Shop\Model\ResourceModel\QueueEntry::class
+            \Katalys\Shop\Model\QueueEntry::class,
+            \Katalys\Shop\Model\ResourceModel\QueueEntry::class
         );
     }
 }

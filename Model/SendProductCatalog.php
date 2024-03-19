@@ -1,11 +1,11 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\Framework\Exception\SecurityViolationException;
-use OneO\Shop\Api\SendProductCatalogInterface;
-use OneO\Shop\Util\Sec\Authenticatable;
-use OneO\Shop\Util\Curl;
+use Katalys\Shop\Api\SendProductCatalogInterface;
+use Katalys\Shop\Util\Sec\Authenticatable;
+use Katalys\Shop\Util\Curl;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Catalog\Api\Data\ProductInterface;

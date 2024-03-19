@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util;
+namespace Katalys\Shop\Util;
 
 /**
  * Curl class
@@ -79,7 +79,7 @@ class Curl
      * POST data via cURL to collector endpoint.
      *
      * @param $params
-     * @return \OneO\Shop\Util\RollingCurlRequest
+     * @return \Katalys\Shop\Util\RollingCurlRequest
      */
     public static function post($params)
     {
@@ -165,7 +165,7 @@ class Curl
             if ($objectManager) {
                 $scopeMetadata = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface');
                 if ($scopeMetadata) {
-                    self::$siteId = $scopeMetadata->getValue(\OneO\Shop\Helper\Data::SITEID_CONFIG_PATH);
+                    self::$siteId = $scopeMetadata->getValue(\Katalys\Shop\Helper\Data::SITEID_CONFIG_PATH);
                 }
             }
         }

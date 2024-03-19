@@ -32,7 +32,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "OneO\\": "src/"
+                    "Katalys\\": "src/"
                 }
             },
             "description": "Composer package for 1o integration",

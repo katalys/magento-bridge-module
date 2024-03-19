@@ -6,7 +6,7 @@
  * Time: 16:10
  */
 
-namespace OneO\Shop\Model\ResourceModel;
+namespace Katalys\Shop\Model\ResourceModel;
 
 /**
  * QueueEntry class

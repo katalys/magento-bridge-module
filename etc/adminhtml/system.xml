@@ -7,7 +7,7 @@
 		<section id="oneo" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 			<label>Shop</label>
 			<tab>katalys_tab</tab>
-			<resource>OneO_Shop::config_oneo_shop</resource>
+			<resource>Katalys_Shop::config_oneo_shop</resource>
 			<group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 				<label>General</label>
 				<field id="oneo_url" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
@@ -30,7 +30,7 @@
             <class>separator-top</class>
             <label>Advertiser Integration</label>
             <tab>katalys_tab</tab>
-            <resource>OneO_Shop::config_oneo_ad</resource>
+            <resource>Katalys_Shop::config_oneo_ad</resource>
             <group id="configs" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General Configuration</label>
                 <field id="includejs" translate="label" type="select" sortOrder="1" showInDefault="0" showInWebsite="1" showInStore="1">
@@ -50,7 +50,7 @@
                 <field id="trigger" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
                     <label>Trigger on Order Status</label>
                     <comment>When to queue/send the data about the order</comment>
-                    <source_model>RevOffers\AdvertiserIntegration\Model\Config\Source\TriggerOptions::toOptionArray</source_model>
+                    <source_model>Katalys\Shop\Model\Config\Source\TriggerOptions::toOptionArray</source_model>
                 </field>
             </group>
         </section>

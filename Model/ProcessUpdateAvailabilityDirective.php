@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\CatalogInventory\Api\Data\StockStatusInterface;
-use OneO\Shop\Api\Data\ProcessDirectiveInterface;
+use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
 
 class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
 {
@@ -20,7 +20,7 @@ class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
      * @param \Magento\Catalog\Model\Product $productModel
      */
     public function __construct(
-        \OneO\Shop\Model\OneOGraphQLClient $graphQLClient,
+        \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient,
         \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository,
         \Magento\Catalog\Model\Product $productModel
     )

@@ -1,12 +1,12 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
-use OneO\Shop\Api\QueueDatesInterface;
-use OneO\Shop\Util\Sec\Authenticatable;
+use Katalys\Shop\Api\QueueDatesInterface;
+use Katalys\Shop\Util\Sec\Authenticatable;
 use Magento\Framework\Exception\SecurityViolationException;
 use Magento\Framework\Exception\InputException;
-use OneO\Shop\Util\DatesSenderFactory;
+use Katalys\Shop\Util\DatesSenderFactory;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\RequestInterface;
 

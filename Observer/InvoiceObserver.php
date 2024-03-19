@@ -1,11 +1,11 @@
 <?php
 
-namespace OneO\Shop\Observer;
+namespace Katalys\Shop\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Psr\Log\LoggerInterface;
-use OneO\Shop\Model\QueueEntryFactory;
-use OneO\Shop\Helper\Data;
+use Katalys\Shop\Model\QueueEntryFactory;
+use Katalys\Shop\Helper\Data;
 use Magento\Framework\Event\Observer;
 use Magento\Sales\Model\Order;
 
@@ -84,7 +84,7 @@ class InvoiceObserver implements ObserverInterface
      */
     protected function useCron(Order $order)
     {
-        /** @var \OneO\Shop\Model\QueueEntry $model */
+        /** @var \Katalys\Shop\Model\QueueEntry $model */
         $model = $this->queueEntryFactory->create();
         $model->addData([
             'order_id' => $order->getId()
@@ -106,11 +106,11 @@ class InvoiceObserver implements ObserverInterface
      */
     protected function callApi(Order $order)
     {
-        $params = \OneO\Shop\Util\OrderPackager::_mapData($order);
+        $params = \Katalys\Shop\Util\OrderPackager::_mapData($order);
 
         if ($params) {
             $params['action'] = 'offline_conv';
-            \OneO\Shop\Util\Curl::post($params);
+            \Katalys\Shop\Util\Curl::post($params);
         } else {
             $this->logger->error(__METHOD__ . ": unable to record order id= " . $order->getId());
         }

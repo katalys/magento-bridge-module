@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model\ResourceModel;
+namespace Katalys\Shop\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\VersionControl\AbstractDb;
 

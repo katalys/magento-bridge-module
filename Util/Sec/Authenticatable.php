@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util\Sec;
+namespace Katalys\Shop\Util\Sec;
 
 use Magento\Framework\Exception\SecurityViolationException;
 

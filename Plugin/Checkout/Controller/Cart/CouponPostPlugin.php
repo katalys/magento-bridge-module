@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Plugin\Checkout\Controller\Cart;
+namespace Katalys\Shop\Plugin\Checkout\Controller\Cart;
 
 use Magento\Checkout\Controller\Cart\CouponPost;
 use Magento\Framework\App\RequestInterface;

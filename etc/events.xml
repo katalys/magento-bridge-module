@@ -2,9 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_order_place_before">
-        <observer name="orderObserver" instance="OneO\Shop\Observer\OrderObserver" />
+        <observer name="orderObserver" instance="Katalys\Shop\Observer\OrderObserver" />
     </event>
     <event name="sales_order_save_after">
-        <observer name="invoiceObserver" instance="OneO\Shop\Observer\InvoiceObserver" />
+        <observer name="invoiceObserver" instance="Katalys\Shop\Observer\InvoiceObserver" />
     </event>
 </config>

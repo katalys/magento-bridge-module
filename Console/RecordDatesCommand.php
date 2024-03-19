@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Console;
+namespace Katalys\Shop\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,16 +20,16 @@ class RecordDatesCommand extends Command
     const TIMEOUT_ARGUMENT = 'timeout';
 
     /**
-     * @var \OneO\Shop\Util\DatesSenderFactory
+     * @var \Katalys\Shop\Util\DatesSenderFactory
      */
     protected $datesSenderFactory;
 
     /**
-     * @param \OneO\Shop\Util\DatesSenderFactory $datesSenderFactory
+     * @param \Katalys\Shop\Util\DatesSenderFactory $datesSenderFactory
      * @param string $name
      */
     public function __construct(
-        \OneO\Shop\Util\DatesSenderFactory $datesSenderFactory,
+        \Katalys\Shop\Util\DatesSenderFactory $datesSenderFactory,
         $name = null
     ) {
         $this->datesSenderFactory = $datesSenderFactory;

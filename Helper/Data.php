@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Helper;
+namespace Katalys\Shop\Helper;
 
 use Magento\Framework\App\Helper\Context;
 use Magento\Checkout\Model\Session;

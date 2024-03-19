@@ -1,4 +1,4 @@
-# magento-1o
+# Katalys
 Magento module for 1o shop integration and This plugin provides a no-hassle integration for advertisers integrating with the Katalys Performance Affiliate Network.
 
 Katalys is a performance-based advertising network for transformational health products and brands. Our publishers deliver high converting in-market traffic to an exclusive list of curated products on the market. Want more eCommerce customers for your brand? Partner with Katalys to craft an enticing performance offer; we’ll do the rest.
@@ -7,8 +7,8 @@ Katalys is a performance-based advertising network for transformational health p
 
 Run the following command to install the package using composer:
 ```
-composer require 1o/magento-bridge-module
-bin/magento module:enable OneO_Shop
+composer require katalys/magento-bridge-module
+bin/magento module:enable Katalys_Shop
 bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile
@@ -17,7 +17,7 @@ php bin/magento setup:di:compile
 
 To update this module run the following command:
 ```
-composer update 1o/magento-bridge-module
+composer update katalys/magento-bridge-module
 ```
 Note that this will also update any other packages in the project according to composer definition. Depending on the nature of the update the following commands might also be required:
 ```
@@ -29,7 +29,7 @@ bin/magento setup:static-content:deploy
 
 If happen error with the new version, You can revert the version. If you install version 1.0.1 and need to rollback the update to the last version that worked 1.0.0, You have an example below:
 ```
-composer require 1o/magento-bridge-module:1.0.0
+composer require katalys/magento-bridge-module:1.0.0
 bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile
@@ -49,8 +49,8 @@ Send us the email with the details above to *support@katalys.com*.
 
 Run the following command to remove the package using composer:
 ```
-bin/magento module:disable OneO_Shop
-composer remove 1o/magento-bridge-module
+bin/magento module:disable Katalys_Shop
+composer remove katalys/magento-bridge-module
 composer update
 php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile
