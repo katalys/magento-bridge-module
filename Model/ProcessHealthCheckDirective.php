@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
-use OneO\Shop\Api\Data\ProcessDirectiveInterface;
+use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
 
 /**
  * ProcessHealthCheckDirective class

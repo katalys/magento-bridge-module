@@ -1,10 +1,10 @@
 <?php
 
-namespace OneO\Shop\Cron;
+namespace Katalys\Shop\Cron;
 
 use Psr\Log\LoggerInterface;
-use OneO\Shop\Model\ResourceModel\QueueEntry\CollectionFactory;
-use OneO\Shop\Util\OrderPackagerFactory;
+use Katalys\Shop\Model\ResourceModel\QueueEntry\CollectionFactory;
+use Katalys\Shop\Util\OrderPackagerFactory;
 
 /**
  * CollectorRunner class
@@ -59,7 +59,7 @@ class CollectorRunner
             $params = $orderPackager->getParams($orderId, true);
             if ($params) {
                 $params['action'] = 'offline_conv';
-                $res = \OneO\Shop\Util\Curl::post($params);
+                $res = \Katalys\Shop\Util\Curl::post($params);
                 if ($res) {
                     $res->callback = function($out, $info) use ($entry) {
                         if (!in_array($info['http_code'], [200,204])) {

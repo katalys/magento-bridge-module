@@ -1,10 +1,10 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\Framework\Exception\SecurityViolationException;
-use OneO\Shop\Api\SendCatalogRulesInterface;
-use OneO\Shop\Util\Sec\Authenticatable;
+use Katalys\Shop\Api\SendCatalogRulesInterface;
+use Katalys\Shop\Util\Sec\Authenticatable;
 
 /**
  * SendCatalogRules class

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 use Magento\UrlRewriteGraphQl\Model\Resolver\UrlRewrite\CustomUrlLocatorInterface;
-use OneO\Shop\Api\Data\ProcessDirectiveInterface;
+use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
 
 class ProcessImportProductDirective implements ProcessDirectiveInterface
 {
     const PRODUCT_URL_KEY = 'product_url';
     private \Magento\Catalog\Api\ProductRepositoryInterface $productRepository;
-    private \OneO\Shop\Helper\ProductMapperFactory $productMapper;
+    private \Katalys\Shop\Helper\ProductMapperFactory $productMapper;
     private OneOGraphQLClient $graphQLClient;
     private UrlFinderInterface $urlFinder;
     private CustomUrlLocatorInterface $customUrlLocator;
@@ -21,7 +21,7 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
 
     /**
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
-     * @param \OneO\Shop\Helper\ProductMapperFactory $productMapper
+     * @param \Katalys\Shop\Helper\ProductMapperFactory $productMapper
      * @param OneOGraphQLClient $graphQLClient
      * @param UrlFinderInterface $urlFinder
      * @param CustomUrlLocatorInterface $customUrlLocator
@@ -29,8 +29,8 @@ class ProcessImportProductDirective implements ProcessDirectiveInterface
      */
     public function __construct(
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \OneO\Shop\Helper\ProductMapperFactory $productMapper,
-        \OneO\Shop\Model\OneOGraphQLClient $graphQLClient,
+        \Katalys\Shop\Helper\ProductMapperFactory $productMapper,
+        \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient,
         UrlFinderInterface $urlFinder,
         CustomUrlLocatorInterface $customUrlLocator,
         \Magento\Store\Model\StoreManagerInterface $storeManager

@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Console;
+namespace Katalys\Shop\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,18 +13,18 @@ class QueueOrderCommand extends RecordOrderCommand
     const COMMAND_REVOFFERS_QUEUE_ORDER = 'katalys:queue:order';
 
     /**
-     * @var \OneO\Shop\Model\QueueEntryFactory
+     * @var \Katalys\Shop\Model\QueueEntryFactory
      */
     protected $queueEntryFactory;
 
     /**
-     * @param \OneO\Shop\Util\OrderPackagerFactory $orderPackagerFactory
-     * @param \OneO\Shop\Model\QueueEntryFactory $queueEntryFactory
+     * @param \Katalys\Shop\Util\OrderPackagerFactory $orderPackagerFactory
+     * @param \Katalys\Shop\Model\QueueEntryFactory $queueEntryFactory
      * @param string $name
      */
     public function __construct(
-        \OneO\Shop\Util\OrderPackagerFactory $orderPackagerFactory,
-        \OneO\Shop\Model\QueueEntryFactory $queueEntryFactory,
+        \Katalys\Shop\Util\OrderPackagerFactory $orderPackagerFactory,
+        \Katalys\Shop\Model\QueueEntryFactory $queueEntryFactory,
         $name = null
     ) {
         parent::__construct($orderPackagerFactory, $name);
@@ -63,7 +63,7 @@ class QueueOrderCommand extends RecordOrderCommand
                     $output->writeln("order$label=$orderId : unable to get order to queue.");
                     continue;
                 }
-                /** @var \OneO\Shop\Model\QueueEntry $entry */
+                /** @var \Katalys\Shop\Model\QueueEntry $entry */
                 $entry = $this->queueEntryFactory->create();
                 $entry->setData('order_id', $params['order_key']); // queued orders always use key
                 $entry->save();

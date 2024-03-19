@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Api\Data;
+namespace Katalys\Shop\Api\Data;
 
 interface ProcessDirectiveInterface
 {

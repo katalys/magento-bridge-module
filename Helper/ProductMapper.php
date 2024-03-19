@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Helper;
+namespace Katalys\Shop\Helper;
 
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\Data\ProductInterface;

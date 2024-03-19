@@ -1,9 +1,9 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
-use OneO\Shop\Api\UpdateOrderStatusInterface;
-use OneO\Shop\Util\Sec\Authenticatable;
+use Katalys\Shop\Api\UpdateOrderStatusInterface;
+use Katalys\Shop\Util\Sec\Authenticatable;
 use Magento\Framework\Exception\SecurityViolationException;
 
 /**
@@ -19,7 +19,7 @@ class UpdateOrderStatus implements UpdateOrderStatusInterface
     protected $logger;
 
     /**
-     * @var \OneO\Shop\Util\OrderStatusUpdaterFactory
+     * @var \Katalys\Shop\Util\OrderStatusUpdaterFactory
      */
     protected $orderStatusUpdaterFactory;
 
@@ -31,12 +31,12 @@ class UpdateOrderStatus implements UpdateOrderStatusInterface
     /**
      * UpdateOrderStatus constructor.
      * @param \Psr\Log\LoggerInterface $logger
-     * @param \OneO\Shop\Util\OrderStatusUpdaterFactory $orderStatusUpdaterFactory
+     * @param \Katalys\Shop\Util\OrderStatusUpdaterFactory $orderStatusUpdaterFactory
      * @param \Magento\Framework\App\RequestInterface $request
      */
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
-        \OneO\Shop\Util\OrderStatusUpdaterFactory $orderStatusUpdaterFactory,
+        \Katalys\Shop\Util\OrderStatusUpdaterFactory $orderStatusUpdaterFactory,
         \Magento\Framework\App\RequestInterface $request
     ) {
         $this->logger = $logger;
@@ -59,7 +59,7 @@ class UpdateOrderStatus implements UpdateOrderStatusInterface
         if (!$conversionMessage) {
             $conversionMessage = "Katalys Advertiser status change: $isConverted";
         }
-        /** @var \OneO\Shop\Util\OrderStatusUpdater $orderStatusUpdater */
+        /** @var \Katalys\Shop\Util\OrderStatusUpdater $orderStatusUpdater */
         $orderStatusUpdater = $this->orderStatusUpdaterFactory->create();
         $success = $orderStatusUpdater->addOrderNote($id, $conversionMessage, $key);
         return [

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OneO\Shop\Api;
+namespace Katalys\Shop\Api;
 
 /**
  * SendCatalogRulesInterface interface

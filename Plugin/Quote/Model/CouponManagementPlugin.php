@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Plugin\Quote\Model;
+namespace Katalys\Shop\Plugin\Quote\Model;
 
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\CouponManagement;

@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use OneO\Model\GraphQLFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Controller\Index;
+namespace Katalys\Shop\Controller\Index;
 
 use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\RequestContentInterface;
@@ -11,13 +11,13 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
-use OneO\Shop\Model\ProcessCompleteOrderDirective;
-use OneO\Shop\Model\ProcessHealthCheckDirective;
-use OneO\Shop\Model\ProcessImportProductDirective;
-use OneO\Shop\Model\ProcessProductInformationSyncDirective;
-use OneO\Shop\Model\ProcessUpdateAvailabilityDirective;
-use OneO\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
-use OneO\Shop\Model\ProcessUpdateTaxAmountsDirective;
+use Katalys\Shop\Model\ProcessCompleteOrderDirective;
+use Katalys\Shop\Model\ProcessHealthCheckDirective;
+use Katalys\Shop\Model\ProcessImportProductDirective;
+use Katalys\Shop\Model\ProcessProductInformationSyncDirective;
+use Katalys\Shop\Model\ProcessUpdateAvailabilityDirective;
+use Katalys\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
+use Katalys\Shop\Model\ProcessUpdateTaxAmountsDirective;
 use OneO\Model\PasetoToken;
 use OneO\Model\KatalysToken;
 use Magento\Framework\Encryption\EncryptorInterface;
@@ -219,7 +219,7 @@ class Index implements CsrfAwareActionInterface
         $processedDirectives = [];
 
         foreach ($directivesToProcess as $directive) {
-            /** @var \OneO\Shop\Api\Data\ProcessDirectiveInterface | null $processor */
+            /** @var \Katalys\Shop\Api\Data\ProcessDirectiveInterface | null $processor */
             $processor = null;
             switch ($directive[self::DIRECTIVE_JSON_KEY]) {
                 case self::DIRECTIVE_HEALTH_CHECK:

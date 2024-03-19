@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model\Config\Source;
+namespace Katalys\Shop\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 

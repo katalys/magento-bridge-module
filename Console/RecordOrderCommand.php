@@ -1,8 +1,8 @@
 <?php
 
-namespace OneO\Shop\Console;
+namespace Katalys\Shop\Console;
 
-use OneO\Shop\Util\OrderPackagerFactory;
+use Katalys\Shop\Util\OrderPackagerFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,7 +66,7 @@ class RecordOrderCommand extends Command
                     continue;
                 }
                 $params['action'] = 'offline_conv';
-                $res = \OneO\Shop\Util\Curl::post($params);
+                $res = \Katalys\Shop\Util\Curl::post($params);
                 if ($res) {
                     $res->callback = function($out, $info) use ($orderId, $output, $label) {
                         $output->writeln("order$label=$orderId" . ' : http status=' . $info['http_code']);

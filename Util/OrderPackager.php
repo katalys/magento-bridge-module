@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util;
+namespace Katalys\Shop\Util;
 
 /**
  * OrderPackager class
@@ -101,8 +101,8 @@ class OrderPackager
         $params = [];
 
         $params['client_ip'] = $data['remote_ip'] ?? null;
-        if (!empty($data[\OneO\Shop\Observer\OrderObserver::META_COLUMN])) {
-            $metadata = json_decode($data[\OneO\Shop\Observer\OrderObserver::META_COLUMN], 1);
+        if (!empty($data[\Katalys\Shop\Observer\OrderObserver::META_COLUMN])) {
+            $metadata = json_decode($data[\Katalys\Shop\Observer\OrderObserver::META_COLUMN], 1);
             if ($metadata) {
                 $params['user_agent'] = $metadata['user_agent'];
                 $params['vid'] = $metadata['vid'];
