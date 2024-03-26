@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f06ad812382534b3803311fe0dbab78c",
+    "content-hash": "cfb66caedf6bfa186ad24cb2d0f7227e",
     "packages": [
         {
             "name": "1o/php-utils",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/katalys/composer-1o.git",
@@ -28,16 +28,15 @@
                 "paragonie/paseto": "^1.1",
                 "paragonie/sodium_compat": "^1.20"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Katalys\\": "src/"
+                    "OneO\\": "src/"
                 }
             },
             "description": "Composer package for 1o integration",
             "support": {
-                "source": "https://github.com/katalys/composer-1o/tree/master",
+                "source": "https://github.com/katalys/composer-1o/tree/1.0.0",
                 "issues": "https://github.com/katalys/composer-1o/issues"
             },
             "time": "2023-11-23T01:22:29+00:00"
@@ -1386,9 +1385,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "1o/php-utils": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
