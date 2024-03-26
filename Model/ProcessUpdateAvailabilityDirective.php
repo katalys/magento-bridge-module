@@ -6,25 +6,41 @@ namespace Katalys\Shop\Model;
 
 use Magento\CatalogInventory\Api\Data\StockStatusInterface;
 use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
+use Magento\CatalogInventory\Api\StockStatusRepositoryInterface;
+use Magento\Catalog\Model\Product;
 
+/**
+ * ProcessUpdateAvailabilityDirective class
+ */
 class ProcessUpdateAvailabilityDirective implements ProcessDirectiveInterface
 {
     const ORDER_ID_KEY = 'order_id';
-    private OneOGraphQLClient $graphQLClient;
-    private \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository;
-    private \Magento\Catalog\Model\Product $productModel;
+
+    /**
+     * @var OneOGraphQLClient
+     */
+    private $graphQLClient;
+
+    /**
+     * @var StockStatusRepositoryInterface
+     */
+    private $stockStatusRepository;
+
+    /**
+     * @var Product
+     */
+    private $productModel;
 
     /**
      * @param OneOGraphQLClient $graphQLClient
-     * @param \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository
-     * @param \Magento\Catalog\Model\Product $productModel
+     * @param StockStatusRepositoryInterface $stockStatusRepository
+     * @param Product $productModel
      */
     public function __construct(
-        \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient,
-        \Magento\CatalogInventory\Api\StockStatusRepositoryInterface $stockStatusRepository,
-        \Magento\Catalog\Model\Product $productModel
-    )
-    {
+        OneOGraphQLClient $graphQLClient,
+        StockStatusRepositoryInterface $stockStatusRepository,
+        Product $productModel
+    ) {
         $this->graphQLClient = $graphQLClient;
         $this->stockStatusRepository = $stockStatusRepository;
         $this->productModel = $productModel;

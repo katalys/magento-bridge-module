@@ -8,34 +8,63 @@ use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 use Magento\UrlRewriteGraphQl\Model\Resolver\UrlRewrite\CustomUrlLocatorInterface;
 use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Katalys\Shop\Helper\ProductMapperFactory;
+use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * ProcessImportProductDirective class
+ */
 class ProcessImportProductDirective implements ProcessDirectiveInterface
 {
     const PRODUCT_URL_KEY = 'product_url';
-    private \Magento\Catalog\Api\ProductRepositoryInterface $productRepository;
-    private \Katalys\Shop\Helper\ProductMapperFactory $productMapper;
-    private OneOGraphQLClient $graphQLClient;
-    private UrlFinderInterface $urlFinder;
-    private CustomUrlLocatorInterface $customUrlLocator;
-    private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
     /**
-     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
-     * @param \Katalys\Shop\Helper\ProductMapperFactory $productMapper
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
+    /**
+     * @var ProductMapperFactory
+     */
+    private $productMapper;
+
+    /**
+     * @var OneOGraphQLClient
+     */
+    private $graphQLClient;
+
+    /**
+     * @var UrlFinderInterface
+     */
+    private $urlFinder;
+
+    /**
+     * @var CustomUrlLocatorInterface
+     */
+    private $customUrlLocator;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @param ProductRepositoryInterface $productRepository
+     * @param ProductMapperFactory $productMapper
      * @param OneOGraphQLClient $graphQLClient
      * @param UrlFinderInterface $urlFinder
      * @param CustomUrlLocatorInterface $customUrlLocator
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Katalys\Shop\Helper\ProductMapperFactory $productMapper,
-        \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient,
+        ProductRepositoryInterface $productRepository,
+        ProductMapperFactory $productMapper,
+        OneOGraphQLClient $graphQLClient,
         UrlFinderInterface $urlFinder,
         CustomUrlLocatorInterface $customUrlLocator,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
-    )
-    {
+        StoreManagerInterface $storeManager
+    ) {
         $this->productRepository = $productRepository;
         $this->productMapper = $productMapper;
         $this->graphQLClient = $graphQLClient;
