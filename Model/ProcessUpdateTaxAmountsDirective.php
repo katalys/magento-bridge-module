@@ -9,28 +9,47 @@ use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
 use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
+use Katalys\Shop\Helper\CartInitializer;
 
+/**
+ * ProcessUpdateTaxAmountsDirective class
+ */
 class ProcessUpdateTaxAmountsDirective implements ProcessDirectiveInterface
 {
     const ORDER_ID_KEY = 'order_id';
-    private OneOGraphQLClient $graphQLClient;
-    private TotalsCollector $totalsCollector;
-    private ExtensibleDataObjectConverter $dataObjectConverter;
-    private \Katalys\Shop\Helper\CartInitializer $cartInitializer;
+
+    /**
+     * @var OneOGraphQLClient
+     */
+    private $graphQLClient;
+
+    /**
+     * @var TotalsCollector
+     */
+    private $totalsCollector;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    private $dataObjectConverter;
+
+    /**
+     * @var CartInitializer
+     */
+    private $cartInitializer;
 
     /**
      * @param OneOGraphQLClient $graphQLClient
      * @param TotalsCollector $totalsCollector
      * @param ExtensibleDataObjectConverter $dataObjectConverter
-     * @param \Katalys\Shop\Helper\CartInitializer $cartInitializer
+     * @param CartInitializer $cartInitializer
      */
     public function __construct(
-        \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient,
+        OneOGraphQLClient $graphQLClient,
         TotalsCollector $totalsCollector,
         ExtensibleDataObjectConverter $dataObjectConverter,
-        \Katalys\Shop\Helper\CartInitializer $cartInitializer
-    )
-    {
+        CartInitializer $cartInitializer
+    ) {
         $this->graphQLClient = $graphQLClient;
         $this->totalsCollector = $totalsCollector;
         $this->dataObjectConverter = $dataObjectConverter;
