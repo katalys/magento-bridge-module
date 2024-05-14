@@ -10,15 +10,19 @@
 			<resource>Katalys_Shop::config_oneo_shop</resource>
 			<group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 				<label>General</label>
-				<field id="oneo_url" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <field id="version" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Version</label>
+                    <frontend_model>Katalys\Shop\Block\Adminhtml\ModuleVersion</frontend_model>
+                </field>
+				<field id="oneo_url" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 					<label>Katalys Url</label>
 					<comment/>
 				</field>
-				<field id="key_id" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<field id="key_id" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 					<label>Key Id</label>
 					<comment/>
 				</field>
-				<field id="shared_secret" type="obscure" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<field id="shared_secret" type="obscure" sortOrder="40" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 					<label>Shared Secret</label>
 					<comment/>
 					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>

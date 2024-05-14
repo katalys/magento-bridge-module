@@ -1,5 +1,5 @@
 # Katalys
-Magento module for 1o shop integration and This plugin provides a no-hassle integration for advertisers integrating with the Katalys Performance Affiliate Network.
+Magento module for Katalys shop integration and This plugin provides a no-hassle integration for advertisers integrating with the Katalys Performance Affiliate Network.
 
 Katalys is a performance-based advertising network for transformational health products and brands. Our publishers deliver high converting in-market traffic to an exclusive list of curated products on the market. Want more eCommerce customers for your brand? Partner with Katalys to craft an enticing performance offer; we’ll do the rest.
 

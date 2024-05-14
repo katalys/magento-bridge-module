@@ -6,7 +6,6 @@ namespace Katalys\Shop\Model;
 
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
-use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
 use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
