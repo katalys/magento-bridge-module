@@ -3,7 +3,6 @@
 namespace Katalys\Shop\Helper;
 
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
-use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\QuoteFactory;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Api\GuestCartManagementInterface;
@@ -51,11 +50,6 @@ class CartInitializer
      * @var AddressInterfaceFactory
      */
     private $addressInterfaceFactory;
-
-    /**
-     * @var AddProductsToCartService
-     */
-    private $addProductsToCart;
 
     /**
      * @var BillingAddressManagementInterface
@@ -118,7 +112,6 @@ class CartInitializer
      * @param MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId
      * @param ShippingAddressManagementInterface $shippingAddressManagement
      * @param AddressInterfaceFactory $addressInterfaceFactory
-     * @param AddProductsToCartService $addProductsToCart
      * @param BillingAddressManagementInterface $billingAddressManagement
      * @param QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId
      * @param PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory
@@ -137,7 +130,6 @@ class CartInitializer
         MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
         ShippingAddressManagementInterface $shippingAddressManagement,
         AddressInterfaceFactory $addressInterfaceFactory,
-        AddProductsToCartService $addProductsToCart,
         BillingAddressManagementInterface $billingAddressManagement,
         QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId,
         PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory,
@@ -155,7 +147,6 @@ class CartInitializer
         $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
         $this->shippingAddressManagement = $shippingAddressManagement;
         $this->addressInterfaceFactory = $addressInterfaceFactory;
-        $this->addProductsToCart = $addProductsToCart;
         $this->billingAddressManagement = $billingAddressManagement;
         $this->quoteIdToMaskedQuoteId = $quoteIdToMaskedQuoteId;
         $this->paymentMethodInterfaceFactory = $paymentMethodInterfaceFactory;

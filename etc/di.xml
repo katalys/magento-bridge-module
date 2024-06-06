@@ -8,6 +8,7 @@
     <preference for="Katalys\Shop\Api\UpdateOrderStatusInterface" type="Katalys\Shop\Model\UpdateOrderStatus"/>
     <preference for="Katalys\Shop\Api\SendProductCatalogInterface" type="Katalys\Shop\Model\SendProductCatalog"/>
     <preference for="Katalys\Shop\Api\SendCatalogRulesInterface" type="Katalys\Shop\Model\SendCatalogRules"/>
+    <preference for="Katalys\Shop\Api\GetModuleDetailsInterface" type="Katalys\Shop\Model\GetModuleDetails"/>
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
