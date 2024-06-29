@@ -4,43 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfb66caedf6bfa186ad24cb2d0f7227e",
+    "content-hash": "ad81362a8bcd60053a4386cda87d9ea8",
     "packages": [
-        {
-            "name": "1o/php-utils",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/katalys/composer-1o.git",
-                "reference": "02d34136d511b8f2e967ead6f7cf68b29dc230bb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/katalys/composer-1o/zipball/02d34136d511b8f2e967ead6f7cf68b29dc230bb",
-                "reference": "02d34136d511b8f2e967ead6f7cf68b29dc230bb",
-                "shasum": ""
-            },
-            "require": {
-                "gmostafa/php-graphql-client": "^1.13",
-                "paragonie/constant_time_encoding": "^2.6",
-                "paragonie/corner": "^2.0",
-                "paragonie/easy-ecc": "^1.0",
-                "paragonie/paseto": "^1.1",
-                "paragonie/sodium_compat": "^1.20"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "OneO\\": "src/"
-                }
-            },
-            "description": "Composer package for 1o integration",
-            "support": {
-                "source": "https://github.com/katalys/composer-1o/tree/1.0.0",
-                "issues": "https://github.com/katalys/composer-1o/issues"
-            },
-            "time": "2023-11-23T01:22:29+00:00"
-        },
         {
             "name": "defuse/php-encryption",
             "version": "v2.4.0",
@@ -109,16 +74,16 @@
             "time": "2023-06-19T06:10:36+00:00"
         },
         {
-            "name": "fgrosse/phpasn1",
+            "name": "genkgo/php-asn1",
             "version": "v2.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fgrosse/PHPASN1.git",
+                "url": "https://github.com/genkgo/php-asn1.git",
                 "reference": "42060ed45344789fb9f21f9f1864fc47b9e3507b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fgrosse/PHPASN1/zipball/42060ed45344789fb9f21f9f1864fc47b9e3507b",
+                "url": "https://api.github.com/repos/genkgo/php-asn1/zipball/42060ed45344789fb9f21f9f1864fc47b9e3507b",
                 "reference": "42060ed45344789fb9f21f9f1864fc47b9e3507b",
                 "shasum": ""
             },
@@ -178,10 +143,9 @@
                 "x690"
             ],
             "support": {
-                "issues": "https://github.com/fgrosse/PHPASN1/issues",
-                "source": "https://github.com/fgrosse/PHPASN1/tree/v2.5.0"
+                "issues": "https://github.com/genkgo/php-asn1/issues",
+                "source": "https://github.com/genkgo/php-asn1/tree/v2.5.0"
             },
-            "abandoned": true,
             "time": "2022-12-19T11:08:26+00:00"
         },
         {
@@ -575,93 +539,107 @@
             "time": "2023-12-03T20:05:35+00:00"
         },
         {
-            "name": "mdanter/ecc",
-            "version": "v1.0.0",
+            "name": "katalys/paseto",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpecc/phpecc.git",
-                "reference": "34e2eec096bf3dcda814e8f66dd91ae87a2db7cd"
+                "url": "https://github.com/katalys/paseto-php.git",
+                "reference": "cdcfd085d834c3d257a70d8d258d5e0a687b7d01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpecc/phpecc/zipball/34e2eec096bf3dcda814e8f66dd91ae87a2db7cd",
-                "reference": "34e2eec096bf3dcda814e8f66dd91ae87a2db7cd",
+                "url": "https://api.github.com/repos/katalys/paseto-php/zipball/cdcfd085d834c3d257a70d8d258d5e0a687b7d01",
+                "reference": "cdcfd085d834c3d257a70d8d258d5e0a687b7d01",
                 "shasum": ""
             },
             "require": {
-                "ext-gmp": "*",
-                "fgrosse/phpasn1": "^2.0",
-                "php": "^7.0||^8.0"
+                "paragonie/constant_time_encoding": "^2",
+                "paragonie/sodium_compat": "^1.7",
+                "php": "^7|^8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0||^8.0||^9.0",
-                "squizlabs/php_codesniffer": "^2.0",
-                "symfony/yaml": "^2.6|^3.0"
+                "phpunit/phpunit": "^6|^7|^8|^9",
+                "vimeo/psalm": "^3|^4"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mdanter\\Ecc\\": "src/"
+                    "ParagonIE\\Paseto\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "ParagonIE\\Paseto\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "full-test": [
+                    "@static-analysis",
+                    "@test"
+                ],
+                "static-analysis": [
+                    "psalm"
+                ],
+                "test": [
+                    "phpunit"
+                ]
+            },
             "license": [
-                "MIT"
+                "ISC"
             ],
-            "authors": [
-                {
-                    "name": "Matyas Danter",
-                    "homepage": "http://matejdanter.com/",
-                    "role": "Author"
-                },
-                {
-                    "name": "Thibaud Fabre",
-                    "email": "thibaud@aztech.io",
-                    "homepage": "http://aztech.io",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Thomas Kerin",
-                    "email": "afk11@users.noreply.github.com",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "PHP Elliptic Curve Cryptography library",
-            "homepage": "https://github.com/phpecc/phpecc",
-            "keywords": [
-                "Diffie",
-                "ECDSA",
-                "Hellman",
-                "curve",
-                "ecdh",
-                "elliptic",
-                "nistp192",
-                "nistp224",
-                "nistp256",
-                "nistp384",
-                "nistp521",
-                "phpecc",
-                "secp256k1",
-                "secp256r1"
-            ],
+            "description": "Platform-Agnostic Security Tokens",
             "support": {
-                "issues": "https://github.com/phpecc/phpecc/issues",
-                "source": "https://github.com/phpecc/phpecc/tree/v1.0.0"
+                "source": "https://github.com/katalys/paseto-php/tree/v1.1.0"
             },
-            "time": "2021-01-16T19:42:14+00:00"
+            "time": "2024-06-27T00:53:14+00:00"
         },
         {
-            "name": "paragonie/constant_time_encoding",
-            "version": "v2.6.3",
+            "name": "katalys/php-utils",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "58c3f47f650c94ec05a151692652a868995d2938"
+                "url": "https://github.com/katalys/composer-1o.git",
+                "reference": "fa81342e96ed10fedfc9fa06a0558fade8253440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/58c3f47f650c94ec05a151692652a868995d2938",
-                "reference": "58c3f47f650c94ec05a151692652a868995d2938",
+                "url": "https://api.github.com/repos/katalys/composer-1o/zipball/fa81342e96ed10fedfc9fa06a0558fade8253440",
+                "reference": "fa81342e96ed10fedfc9fa06a0558fade8253440",
+                "shasum": ""
+            },
+            "require": {
+                "gmostafa/php-graphql-client": "^1.13",
+                "katalys/paseto": "^1.1",
+                "paragonie/constant_time_encoding": "^2.6",
+                "paragonie/corner": "^2.0",
+                "paragonie/easy-ecc": "^1.0",
+                "paragonie/sodium_compat": "^1.20"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OneO\\": "src/"
+                }
+            },
+            "description": "Composer package for 1o integration",
+            "support": {
+                "source": "https://github.com/katalys/composer-1o/tree/v1.1.0",
+                "issues": "https://github.com/katalys/composer-1o/issues"
+            },
+            "time": "2024-06-27T01:11:39+00:00"
+        },
+        {
+            "name": "paragonie/constant_time_encoding",
+            "version": "v2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/constant_time_encoding.git",
+                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/52a0d99e69f56b9ec27ace92ba56897fe6993105",
+                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +693,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2022-06-14T06:56:20+00:00"
+            "time": "2024-05-08T12:18:48+00:00"
         },
         {
             "name": "paragonie/corner",
@@ -764,29 +742,29 @@
         },
         {
             "name": "paragonie/easy-ecc",
-            "version": "v1.0.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/easy-ecc.git",
-                "reference": "53d6a1c484e6e61e59e6c78718f5ffaf1be76f72"
+                "reference": "0205cbc07c5f232bc809a489e92a11d9cf2e1498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/easy-ecc/zipball/53d6a1c484e6e61e59e6c78718f5ffaf1be76f72",
-                "reference": "53d6a1c484e6e61e59e6c78718f5ffaf1be76f72",
+                "url": "https://api.github.com/repos/paragonie/easy-ecc/zipball/0205cbc07c5f232bc809a489e92a11d9cf2e1498",
+                "reference": "0205cbc07c5f232bc809a489e92a11d9cf2e1498",
                 "shasum": ""
             },
             "require": {
-                "defuse/php-encryption": "^2.1",
+                "defuse/php-encryption": "^2.4",
                 "ext-gmp": "*",
-                "mdanter/ecc": "^1",
-                "paragonie/constant_time_encoding": "^2.1",
-                "paragonie/sodium_compat": "^1.16",
+                "paragonie/constant_time_encoding": "^2.7|^3",
+                "paragonie/ecc": "^2.3",
+                "paragonie/sodium_compat": "^1|^2",
                 "php": "^7.1|^8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7|^8|^9",
-                "vimeo/psalm": "^1|^3|^4"
+                "vimeo/psalm": "^1|^3|^4|^5"
             },
             "type": "library",
             "autoload": {
@@ -815,54 +793,95 @@
                 "issues": "https://github.com/paragonie/ionizer/issues",
                 "source": "https://github.com/paragonie/ionizer"
             },
-            "time": "2022-06-02T20:18:08+00:00"
+            "time": "2024-05-08T16:43:23+00:00"
         },
         {
-            "name": "paragonie/paseto",
-            "version": "v1.1.0",
+            "name": "paragonie/ecc",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paragonie/paseto.git",
-                "reference": "dfbb2b732fc2f1c4365ac41720175ab0097ffca7"
+                "url": "https://github.com/paragonie/phpecc.git",
+                "reference": "46ea6f3614aada164e89e87c695e324474c2b5a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/paseto/zipball/dfbb2b732fc2f1c4365ac41720175ab0097ffca7",
-                "reference": "dfbb2b732fc2f1c4365ac41720175ab0097ffca7",
+                "url": "https://api.github.com/repos/paragonie/phpecc/zipball/46ea6f3614aada164e89e87c695e324474c2b5a5",
+                "reference": "46ea6f3614aada164e89e87c695e324474c2b5a5",
                 "shasum": ""
             },
             "require": {
-                "paragonie/constant_time_encoding": "^2",
-                "paragonie/sodium_compat": "^1.7",
-                "php": "^7|^8",
-                "phpseclib/phpseclib": "^2"
+                "ext-gmp": "*",
+                "genkgo/php-asn1": "^2",
+                "paragonie/sodium_compat": "^1|^2",
+                "php": "^7.1||^8.0"
             },
             "require-dev": {
+                "ext-json": "*",
                 "phpunit/phpunit": "^6|^7|^8|^9",
-                "vimeo/psalm": "^3|^4"
+                "squizlabs/php_codesniffer": "^2|^3",
+                "symfony/yaml": "^2.6|^3.0|^4",
+                "vimeo/psalm": "^2|^3|^4|^5"
+            },
+            "suggest": {
+                "ext-openssl": "(PHP 8.1, OpenSSL 3+) Improved performance, less worries about side-channels"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "ParagonIE\\Paseto\\": "src/"
+                    "Mdanter\\Ecc\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "ISC"
+                "MIT"
             ],
             "authors": [
                 {
                     "name": "Paragon Initiative Enterprises",
-                    "email": "security@paragonie.com"
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "New Maintainer"
+                },
+                {
+                    "name": "Matyas Danter",
+                    "homepage": "http://matejdanter.com/",
+                    "role": "Previous Author"
+                },
+                {
+                    "name": "Thibaud Fabre",
+                    "email": "thibaud@aztech.io",
+                    "homepage": "http://aztech.io",
+                    "role": "Previous Maintainer"
+                },
+                {
+                    "name": "Thomas Kerin",
+                    "email": "afk11@users.noreply.github.com",
+                    "role": "Previous Maintainer"
                 }
             ],
-            "description": "Platform-Agnostic Security Tokens",
+            "description": "PHP Elliptic Curve Cryptography library",
+            "homepage": "https://github.com/phpecc/phpecc",
+            "keywords": [
+                "Diffie",
+                "ECDSA",
+                "Hellman",
+                "curve",
+                "ecdh",
+                "elliptic",
+                "nistp192",
+                "nistp224",
+                "nistp256",
+                "nistp384",
+                "nistp521",
+                "phpecc",
+                "secp256k1",
+                "secp256r1"
+            ],
             "support": {
-                "issues": "https://github.com/paragonie/paseto/issues",
-                "source": "https://github.com/paragonie/paseto/tree/v1.1.0"
+                "issues": "https://github.com/paragonie/phpecc/issues",
+                "source": "https://github.com/paragonie/phpecc/tree/v2.3.0"
             },
-            "time": "2021-01-20T16:34:16+00:00"
+            "time": "2024-05-01T14:04:05+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -916,16 +935,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.20.0",
+            "version": "v1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6"
+                "reference": "bb312875dcdd20680419564fe42ba1d9564b9e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
-                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/bb312875dcdd20680419564fe42ba1d9564b9e37",
+                "reference": "bb312875dcdd20680419564fe42ba1d9564b9e37",
                 "shasum": ""
             },
             "require": {
@@ -996,119 +1015,9 @@
             ],
             "support": {
                 "issues": "https://github.com/paragonie/sodium_compat/issues",
-                "source": "https://github.com/paragonie/sodium_compat/tree/v1.20.0"
+                "source": "https://github.com/paragonie/sodium_compat/tree/v1.21.1"
             },
-            "time": "2023-04-30T00:54:53+00:00"
-        },
-        {
-            "name": "phpseclib/phpseclib",
-            "version": "2.0.46",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d",
-                "reference": "498e67a0c82bd5791fda9b0dd0f4ec8e8aebb02d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phing/phing": "~2.7",
-                "phpunit/phpunit": "^4.8.35|^5.7|^6.0|^9.4",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "suggest": {
-                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
-                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
-                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
-                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations.",
-                "ext-xml": "Install the XML extension to load XML formatted public keys."
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "phpseclib/bootstrap.php"
-                ],
-                "psr-4": {
-                    "phpseclib\\": "phpseclib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Wigginton",
-                    "email": "terrafrost@php.net",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Patrick Monnerat",
-                    "email": "pm@datasphere.ch",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Andreas Fischer",
-                    "email": "bantu@phpbb.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Hans-Jürgen Petrich",
-                    "email": "petrich@tronic-media.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Graham Campbell",
-                    "email": "graham@alt-three.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
-            "homepage": "http://phpseclib.sourceforge.net",
-            "keywords": [
-                "BigInteger",
-                "aes",
-                "asn.1",
-                "asn1",
-                "blowfish",
-                "crypto",
-                "cryptography",
-                "encryption",
-                "rsa",
-                "security",
-                "sftp",
-                "signature",
-                "signing",
-                "ssh",
-                "twofish",
-                "x.509",
-                "x509"
-            ],
-            "support": {
-                "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.46"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/terrafrost",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/phpseclib",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpseclib/phpseclib",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-12-29T01:52:43+00:00"
+            "time": "2024-04-22T22:05:04+00:00"
         },
         {
             "name": "psr/http-client",
@@ -1164,20 +1073,20 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
@@ -1201,7 +1110,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -1213,9 +1122,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
-            "time": "2023-04-10T20:10:41+00:00"
+            "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1316,16 +1225,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.2",
+            "version": "v2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66"
+                "reference": "80d075412b557d41002320b96a096ca65aa2c98d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
-                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/80d075412b557d41002320b96a096ca65aa2c98d",
+                "reference": "80d075412b557d41002320b96a096ca65aa2c98d",
                 "shasum": ""
             },
             "require": {
@@ -1363,7 +1272,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.2"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.3"
             },
             "funding": [
                 {
@@ -1379,7 +1288,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:53:40+00:00"
+            "time": "2023-01-24T14:02:46+00:00"
         }
     ],
     "packages-dev": [],
@@ -1394,5 +1303,5 @@
         "ext-curl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
