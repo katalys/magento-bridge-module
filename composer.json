@@ -2,7 +2,7 @@
     "name": "katalys/magento-bridge-module",
     "description": "Magento module for Katalys Integration",
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "require": {
         "1o/php-utils": "1.0.0",
