@@ -27,6 +27,6 @@ class CouponManagementPlugin
         if (substr($couponCode, 0, 3) === 'KS_') {
             throw new \Exception(__("The coupon code isn't valid. Verify the code and try again."));
         }
-        return $proceed();
+        return $proceed($cartId, $couponCode);
     }
 }
