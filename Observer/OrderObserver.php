@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Observer;
+namespace Katalys\Shop\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Psr\Log\LoggerInterface;

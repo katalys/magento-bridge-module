@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util;
+namespace Katalys\Shop\Util;
 
 /**
  * Container for a rolling queue of cURL requests.

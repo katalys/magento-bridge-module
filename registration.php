@@ -5,5 +5,5 @@
  */
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'OneO_Shop', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Katalys_Shop', __DIR__);
 

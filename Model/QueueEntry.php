@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 /**
  * QueueEntry class
@@ -12,6 +12,6 @@ class QueueEntry extends \Magento\Framework\Model\AbstractModel
      */
     public function _construct()
     {
-        $this->_init(\OneO\Shop\Model\ResourceModel\QueueEntry::class);
+        $this->_init(\Katalys\Shop\Model\ResourceModel\QueueEntry::class);
     }
 }

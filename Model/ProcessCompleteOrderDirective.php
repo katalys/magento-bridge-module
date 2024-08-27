@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
-use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\TotalsCollector;
-use OneO\Shop\Api\Data\ProcessDirectiveInterface;
-use OneO\Shop\Helper\CartInitializer;
+use Katalys\Shop\Api\Data\ProcessDirectiveInterface;
+use Katalys\Shop\Helper\CartInitializer;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use OneO\Shop\Model\OneOGraphQLClient;
+use Katalys\Shop\Model\OneOGraphQLClient;
 
 /**
  * ProcessCompleteOrderDirective class
@@ -51,7 +50,7 @@ class ProcessCompleteOrderDirective implements ProcessDirectiveInterface
     private $orderRepository;
 
     /**
-     * @param \OneO\Shop\Model\OneOGraphQLClient $graphQLClient
+     * @param \Katalys\Shop\Model\OneOGraphQLClient $graphQLClient
      * @param TotalsCollector $totalsCollector
      * @param ExtensibleDataObjectConverter $dataObjectConverter
      * @param CartInitializer $cartInitializer

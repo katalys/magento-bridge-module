@@ -1,11 +1,13 @@
 <?php
 /** @var \Katalys\Shop\Helper\Data $helper */
+/** @var \Magento\Checkout\Block\Onepage\Success $block */
+
 $helper = $this->helper('\Katalys\Shop\Helper\Data');
 
 if ($helper->getIncludeJs()):
 
 $siteId = $helper->getSiteId();
-$orderId = $helper->getOrderId();
+$orderId = $block->getOrderId();
 
 if ($siteId || $orderId) { ?>
 <script type="text/javascript">

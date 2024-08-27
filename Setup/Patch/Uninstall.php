@@ -1,12 +1,12 @@
 <?php
-namespace OneO\Shop\Setup\Patch;
+namespace Katalys\Shop\Setup\Patch;
 
 use Magento\Framework\Setup\UninstallInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Config\Model\ResourceModel\Config\Data\CollectionFactory;
 use Magento\Config\Model\ResourceModel\Config\Data;
-use OneO\Shop\Util\Curl;
+use Katalys\Shop\Util\Curl;
 
 /**
  * Uninstall class

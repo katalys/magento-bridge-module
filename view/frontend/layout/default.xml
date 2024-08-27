@@ -4,7 +4,7 @@
         <referenceContainer name="before.body.end">
             <block class="Magento\Framework\View\Element\Template"
                    name="katalys.js.block"
-                   template="OneO_Shop::katalysadjs.phtml"/>
+                   template="Katalys_Shop::katalysadjs.phtml"/>
         </referenceContainer>
     </body>
 </page>

@@ -1,25 +1,31 @@
 {
-    "name": "1o/magento-bridge-module",
-    "description": "Magento module for 1o Integration",
+    "name": "katalys/magento-bridge-module",
+    "description": "Magento module for Katalys Integration",
     "type": "magento2-module",
+    "version": "1.1.2",
+    "license": "MIT",
     "require": {
-        "1o/php-utils": "dev-master",
         "ext-json": "*",
         "ext-openssl": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "katalys/php-utils": "dev-dev"
     },
     "autoload": {
         "files": [
             "registration.php"
         ],
         "psr-4": {
-            "OneO\\Shop\\": ""
+            "Katalys\\Shop\\": ""
         }
     },
     "repositories":[
         {
             "type": "vcs",
-            "url": "git@github.com:katalys/composer-1o.git"
+            "url": "https://github.com/katalys/composer-1o.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/katalys/paseto-php.git"
         }
     ]
 }

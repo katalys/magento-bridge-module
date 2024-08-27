@@ -1,11 +1,11 @@
 <?php
 
-namespace OneO\Shop\Model\Quote\Address\Total;
+namespace Katalys\Shop\Model\Quote\Address\Total;
 
 use Magento\Quote\Model\Quote\Address\Total\AbstractTotal;
-use OneO\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
-use OneO\Shop\Model\KatalysQuoteItem;
-use OneO\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
+use Katalys\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
+use Katalys\Shop\Model\KatalysQuoteItem;
+use Katalys\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Api\Data\ShippingAssignmentInterface;
 use Magento\Quote\Model\Quote\Address\Total;

@@ -1,11 +1,11 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
-use OneO\Model\GraphQLFactory;
+use Katalys\Model\GraphQLFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use OneO\Model\PasetoToken;
-use OneO\Model\KatalysToken;
+use Katalys\Model\PasetoToken;
+use Katalys\Model\KatalysToken;
 use Magento\Framework\Encryption\EncryptorInterface;
 
 class OneOGraphQLClient

@@ -4,9 +4,9 @@
     <table name="katalys_quote_item" resource="default" comment="Quote Item">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
-        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false"
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false"
                 default="0" comment="Quote ID"/>
-        <column xsi:type="int" name="quote_item_id" unsigned="true" nullable="false" identity="false"
+        <column xsi:type="int" name="quote_item_id" padding="10" unsigned="true" nullable="false" identity="false"
                 default="0" comment="Quote Item ID"/>
         <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="false" default="0"
                 comment="Qty"/>

@@ -1,13 +1,13 @@
 <?php
 
-namespace OneO\Shop\Setup\Patch\Data;
+namespace Katalys\Shop\Setup\Patch\Data;
 
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\UrlInterface;
 use Psr\Log\LoggerInterface;
-use OneO\Shop\Helper\Data;
-use OneO\Shop\Util\Curl;
+use Katalys\Shop\Helper\Data;
+use Katalys\Shop\Util\Curl;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 

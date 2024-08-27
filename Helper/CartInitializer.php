@@ -1,9 +1,8 @@
 <?php
 
-namespace OneO\Shop\Helper;
+namespace Katalys\Shop\Helper;
 
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
-use Magento\Quote\Model\Cart\AddProductsToCart as AddProductsToCartService;
 use Magento\Quote\Model\QuoteFactory;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Api\GuestCartManagementInterface;
@@ -17,8 +16,8 @@ use Magento\Payment\Api\Data\PaymentMethodInterfaceFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\SalesRule\Model\Coupon;
-use OneO\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
-use OneO\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
+use Katalys\Shop\Model\KatalysQuoteItemFactory as KatalysQuoteItemModelFactory;
+use Katalys\Shop\Model\ResourceModel\KatalysQuoteItem as KatalysQuoteItemResourceModel;
 use Magento\SalesRule\Api\CouponRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
@@ -51,11 +50,6 @@ class CartInitializer
      * @var AddressInterfaceFactory
      */
     private $addressInterfaceFactory;
-
-    /**
-     * @var AddProductsToCartService
-     */
-    private $addProductsToCart;
 
     /**
      * @var BillingAddressManagementInterface
@@ -118,7 +112,6 @@ class CartInitializer
      * @param MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId
      * @param ShippingAddressManagementInterface $shippingAddressManagement
      * @param AddressInterfaceFactory $addressInterfaceFactory
-     * @param AddProductsToCartService $addProductsToCart
      * @param BillingAddressManagementInterface $billingAddressManagement
      * @param QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId
      * @param PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory
@@ -137,7 +130,6 @@ class CartInitializer
         MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
         ShippingAddressManagementInterface $shippingAddressManagement,
         AddressInterfaceFactory $addressInterfaceFactory,
-        AddProductsToCartService $addProductsToCart,
         BillingAddressManagementInterface $billingAddressManagement,
         QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedQuoteId,
         PaymentMethodInterfaceFactory $paymentMethodInterfaceFactory,
@@ -155,7 +147,6 @@ class CartInitializer
         $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
         $this->shippingAddressManagement = $shippingAddressManagement;
         $this->addressInterfaceFactory = $addressInterfaceFactory;
-        $this->addProductsToCart = $addProductsToCart;
         $this->billingAddressManagement = $billingAddressManagement;
         $this->quoteIdToMaskedQuoteId = $quoteIdToMaskedQuoteId;
         $this->paymentMethodInterfaceFactory = $paymentMethodInterfaceFactory;

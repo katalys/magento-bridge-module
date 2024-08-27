@@ -1,29 +1,30 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="\Magento\Sales\Block\Adminhtml\Order\Totals" type="\OneO\Shop\Block\Adminhtml\Order\Totals"/>
-    <preference for="OneO\Shop\Api\RecordOrderInterface" type="OneO\Shop\Model\RecordOrder"/>
-    <preference for="OneO\Shop\Api\RecordDatesInterface" type="OneO\Shop\Model\RecordDates"/>
-    <preference for="OneO\Shop\Api\QueueDatesInterface" type="OneO\Shop\Model\QueueDates"/>
-    <preference for="OneO\Shop\Api\UpdateOrderStatusInterface" type="OneO\Shop\Model\UpdateOrderStatus"/>
-    <preference for="OneO\Shop\Api\SendProductCatalogInterface" type="OneO\Shop\Model\SendProductCatalog"/>
-    <preference for="OneO\Shop\Api\SendCatalogRulesInterface" type="OneO\Shop\Model\SendCatalogRules"/>
+    <preference for="\Magento\Sales\Block\Adminhtml\Order\Totals" type="\Katalys\Shop\Block\Adminhtml\Order\Totals"/>
+    <preference for="Katalys\Shop\Api\RecordOrderInterface" type="Katalys\Shop\Model\RecordOrder"/>
+    <preference for="Katalys\Shop\Api\RecordDatesInterface" type="Katalys\Shop\Model\RecordDates"/>
+    <preference for="Katalys\Shop\Api\QueueDatesInterface" type="Katalys\Shop\Model\QueueDates"/>
+    <preference for="Katalys\Shop\Api\UpdateOrderStatusInterface" type="Katalys\Shop\Model\UpdateOrderStatus"/>
+    <preference for="Katalys\Shop\Api\SendProductCatalogInterface" type="Katalys\Shop\Model\SendProductCatalog"/>
+    <preference for="Katalys\Shop\Api\SendCatalogRulesInterface" type="Katalys\Shop\Model\SendCatalogRules"/>
+    <preference for="Katalys\Shop\Api\GetModuleDetailsInterface" type="Katalys\Shop\Model\GetModuleDetails"/>
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="record-order" xsi:type="object">OneO\Shop\Console\RecordOrderCommand</item>
-                <item name="queue-order" xsi:type="object">OneO\Shop\Console\QueueOrderCommand</item>
-                <item name="record-dates" xsi:type="object">OneO\Shop\Console\RecordDatesCommand</item>
-                <item name="queue-dates" xsi:type="object">OneO\Shop\Console\QueueDatesCommand</item>
+                <item name="record-order" xsi:type="object">Katalys\Shop\Console\RecordOrderCommand</item>
+                <item name="queue-order" xsi:type="object">Katalys\Shop\Console\QueueOrderCommand</item>
+                <item name="record-dates" xsi:type="object">Katalys\Shop\Console\RecordDatesCommand</item>
+                <item name="queue-dates" xsi:type="object">Katalys\Shop\Console\QueueDatesCommand</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Quote\Model\CouponManagement">
         <plugin name="katalys_one_shop_plugin_quote_model_couponmanagment"
-                type="OneO\Shop\Plugin\Quote\Model\CouponManagementPlugin"/>
+                type="Katalys\Shop\Plugin\Quote\Model\CouponManagementPlugin"/>
     </type>
     <type name="Magento\Checkout\Controller\Cart\CouponPost">
         <plugin name="katalys_one_shop_plugin_checkout_controller_cart_couponpost"
-                type="OneO\Shop\Plugin\Checkout\Controller\Cart\CouponPostPlugin"/>
+                type="Katalys\Shop\Plugin\Checkout\Controller\Cart\CouponPostPlugin"/>
     </type>
 </config>

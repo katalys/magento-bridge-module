@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneO\Shop\Block\Index;
+namespace Katalys\Shop\Block\Index;
 
 class Index extends \Magento\Framework\View\Element\Template
 {

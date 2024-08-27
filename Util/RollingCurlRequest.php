@@ -1,6 +1,6 @@
 <?php
 
-namespace OneO\Shop\Util;
+namespace Katalys\Shop\Util;
 
 /**
  * RollingCurlRequest class

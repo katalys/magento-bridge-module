@@ -1,11 +1,11 @@
 <?php
 
-namespace OneO\Shop\Model;
+namespace Katalys\Shop\Model;
 
-use OneO\Shop\Api\RecordOrderInterface;
-use OneO\Shop\Util\Sec\Authenticatable;
+use Katalys\Shop\Api\RecordOrderInterface;
+use Katalys\Shop\Util\Sec\Authenticatable;
 use Magento\Framework\Exception\SecurityViolationException;
-use OneO\Shop\Util\OrderPackagerFactory;
+use Katalys\Shop\Util\OrderPackagerFactory;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\RequestInterface;
 
@@ -70,8 +70,8 @@ class RecordOrder implements RecordOrderInterface
             ];
         }
         $params['action'] = 'restapi_conv';
-        $req = \OneO\Shop\Util\Curl::post($params);
-        \OneO\Shop\Util\Curl::getDefault()->waitFor($req);
+        $req = \Katalys\Shop\Util\Curl::post($params);
+        \Katalys\Shop\Util\Curl::getDefault()->waitFor($req);
         $info = $req->info;
         $success = in_array($info['http_code'], [200,204]);
         return [
