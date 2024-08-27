@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad81362a8bcd60053a4386cda87d9ea8",
+    "content-hash": "b83a2030176dae07dbf36d60386087f3",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -595,16 +595,16 @@
         },
         {
             "name": "katalys/php-utils",
-            "version": "v1.1.0",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/katalys/composer-1o.git",
-                "reference": "fa81342e96ed10fedfc9fa06a0558fade8253440"
+                "reference": "a99ffc97ff72748d636d17e80174fbd86e898ab0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/katalys/composer-1o/zipball/fa81342e96ed10fedfc9fa06a0558fade8253440",
-                "reference": "fa81342e96ed10fedfc9fa06a0558fade8253440",
+                "url": "https://api.github.com/repos/katalys/composer-1o/zipball/a99ffc97ff72748d636d17e80174fbd86e898ab0",
+                "reference": "a99ffc97ff72748d636d17e80174fbd86e898ab0",
                 "shasum": ""
             },
             "require": {
@@ -618,15 +618,15 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "OneO\\": "src/"
+                    "Katalys\\": "src/"
                 }
             },
             "description": "Composer package for 1o integration",
             "support": {
-                "source": "https://github.com/katalys/composer-1o/tree/v1.1.0",
+                "source": "https://github.com/katalys/composer-1o/tree/dev",
                 "issues": "https://github.com/katalys/composer-1o/issues"
             },
-            "time": "2024-06-27T01:11:39+00:00"
+            "time": "2024-08-27T18:49:52+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -1294,7 +1294,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "katalys/php-utils": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

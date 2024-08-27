@@ -18,8 +18,8 @@ use Katalys\Shop\Model\ProcessProductInformationSyncDirective;
 use Katalys\Shop\Model\ProcessUpdateAvailabilityDirective;
 use Katalys\Shop\Model\ProcessUpdateAvailableShippingRatesDirective;
 use Katalys\Shop\Model\ProcessUpdateTaxAmountsDirective;
-use OneO\Model\PasetoToken;
-use OneO\Model\KatalysToken;
+use Katalys\Model\PasetoToken;
+use Katalys\Model\KatalysToken;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
