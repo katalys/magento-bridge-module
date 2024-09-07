@@ -8,5 +8,10 @@
 				<shared_secret/>
 			</general>
 		</oneo>
+		<katalys_ad>
+			<configs>
+				<trigger_all_status>0</trigger_all_status>
+			</configs>
+		</katalys_ad>
 	</default>
 </config>

@@ -3,24 +3,24 @@
 $helper = $this->helper('\Katalys\Shop\Helper\Data');
 
 if ($helper->getIncludeJs()):
+    $siteId = $helper->getSiteId();
+    $orderId = $helper->getOrderId();
 
-$siteId = $helper->getSiteId();
-$orderId = $helper->getOrderId();
+    if ($siteId || $orderId) { ?>
+        <script type="text/javascript">
+            window._revoffers_track = window._revoffers_track || {};
+            <?php if ($siteId) { ?>
+                _revoffers_track.site_id = <?= json_encode($siteId) ?>;
+            <?php } ?>
 
-if ($siteId || $orderId) { ?>
-<script type="text/javascript">
-window._revoffers_track = window._revoffers_track || {};
-<?php if ($siteId) { ?>
-_revoffers_track.site_id = <?= json_encode($siteId) ?>;
-<?php } ?>
-<?php if ($orderId) { ?>
-_revoffers_track.order_id = <?= json_encode($orderId) ?>;
-<?php } ?>
-</script>
-<?php } ?>
-
-<!-- Katalys Advertiser Integration https://katalys.com/ -->
-<script type="text/javascript" src="https://db.revoffers.com/js/<?= $siteId ? htmlspecialchars($siteId) : "_default" ?>.js" async></script>
-
-<?php
-endif;
+            <?php if ($orderId) { ?>
+                _revoffers_track.action = "thank_you";
+                _revoffers_track.order_id = <?= json_encode($orderId) ?>;
+                _revoffers_track.order_time = <?= json_encode($helper->getOrderTime() ?? '');?>;
+                _revoffers_track.order_status = <?= json_encode($helper->getStatus() ?? '');?>;
+            <?php } ?>
+        </script>
+    <?php } ?>
+    <!-- Katalys Advertiser Integration https://katalys.com/ -->
+    <script type="text/javascript" src="https://db.revoffers.com/js/<?= $siteId ? htmlspecialchars($siteId) : "_default" ?>.js" async></script>
+<?php endif;
