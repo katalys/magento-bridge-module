@@ -5,7 +5,9 @@ namespace Katalys\Shop\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
-
+use Magento\Sales\Api\Data\OrderInterface;
+use Magento\Sales\Api\Data\OrderInterfaceFactory;
+use Magento\Sales\Model\ResourceModel\Order as ResourceModelOrder;
 /**
  * Data class
  */
@@ -19,18 +21,44 @@ class Data extends AbstractHelper
     /**
      * @var Session
      */
-    private $checkoutSession;
+    protected $checkoutSession;
+
+    /**
+     * @var ResourceModelOrder
+     */
+    protected $resourceModelOrder;
+
+    /**
+     * @var OrderInterfaceFactory
+     */
+    protected $modelOrder;
+
+    /**
+     * @var OrderInterface
+     */
+    protected $order;
+
+    /**
+     * @var string
+     */
+    protected $orderId;
 
     /**
      * @param Context $context
      * @param Session $checkoutSession
+     * @param ResourceModelOrder $resourceModelOrder
+     * @param OrderInterfaceFactory $modelOrder
      */
     public function __construct(
         Context $context,
-        Session $checkoutSession
+        Session $checkoutSession,
+        ResourceModelOrder $resourceModelOrder,
+        OrderInterfaceFactory $modelOrder
     ) {
         parent::__construct($context);
         $this->checkoutSession = $checkoutSession;
+        $this->resourceModelOrder = $resourceModelOrder;
+        $this->modelOrder = $modelOrder;
     }
 
     /**
@@ -80,6 +108,66 @@ class Data extends AbstractHelper
      */
     public function getOrderId()
     {
+        if ($this->orderId) {
+            return $this->orderId;
+        }
         return $this->checkoutSession->getLastRealOrderId();
+    }
+
+    /**
+     * @param $orderId
+     * @return $this
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
+    }
+
+    /**
+     * @return OrderInterface|null
+     */
+    public function getOrder()
+    {
+        if ($this->order) {
+            return $this->order;
+        }
+
+        if (!$this->getOrderId()) {
+            return null;
+        }
+
+        $this->order = $this->modelOrder->create();
+        $this->resourceModelOrder->load($this->order, $this->getOrderId(), 'increment_id');
+        return $this->order;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        $orderStatus = $this->getOrder()->getStatus();
+        if ($orderStatus == "fraud") {
+            return "rejected";
+        } elseif ($orderStatus == "canceled") {
+            return "cancelled";
+        } elseif ($orderStatus == "closed") {
+            return "refunded";
+        } elseif ($orderStatus === 'complete') {
+            return "fulfilled";
+        } elseif ($orderStatus === 'processing') {
+            return "pending";
+        } else {
+            return $orderStatus;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderTime()
+    {
+        return $this->getOrder()->getCreatedAt();
     }
 }

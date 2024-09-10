@@ -2,6 +2,7 @@
 
 namespace Katalys\Shop\Cron;
 
+use Katalys\Shop\Api\ConfigInterface;
 use Psr\Log\LoggerInterface;
 use Katalys\Shop\Model\ResourceModel\QueueEntry\CollectionFactory;
 use Katalys\Shop\Util\OrderPackagerFactory;
@@ -29,6 +30,11 @@ class CollectorRunner
     protected $orderPackagerFactory;
 
     /**
+     * @var ConfigInterface
+     */
+    protected $config;
+
+    /**
      * @param LoggerInterface $logger
      * @param CollectionFactory $collectionFactory
      * @param OrderPackagerFactory $orderPackagerFactory
@@ -36,11 +42,13 @@ class CollectorRunner
     public function __construct(
         LoggerInterface $logger,
         CollectionFactory $collectionFactory,
-        OrderPackagerFactory $orderPackagerFactory
+        OrderPackagerFactory $orderPackagerFactory,
+        ConfigInterface $config
     ) {
         $this->logger = $logger;
         $this->collectionFactory = $collectionFactory;
         $this->orderPackagerFactory = $orderPackagerFactory;
+        $this->config = $config;
     }
 
     /**
@@ -59,6 +67,9 @@ class CollectorRunner
             $params = $orderPackager->getParams($orderId, true);
             if ($params) {
                 $params['action'] = 'offline_conv';
+                if ($this->config->isDebugMode()) {
+                    $this->logger->debug(__CLASS__ . ': params=' . \json_encode($params));
+                }
                 $res = \Katalys\Shop\Util\Curl::post($params);
                 if ($res) {
                     $res->callback = function($out, $info) use ($entry) {

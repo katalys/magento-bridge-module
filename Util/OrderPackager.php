@@ -128,6 +128,12 @@ class OrderPackager
             $params['order_status'] = "cancelled";
         } elseif ($orderStatus == "closed") {
             $params['order_status'] = "refunded";
+        } elseif ($orderStatus === 'complete') {
+            $params['order_status'] = "fulfilled";
+        } elseif ($orderStatus === 'processing') {
+            $params['order_status'] = "pending";
+        } else {
+            $params['order_status'] = $orderStatus;
         }
 
         // money
