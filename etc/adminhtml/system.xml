@@ -41,7 +41,7 @@
                     <label>Version</label>
                     <frontend_model>Katalys\Shop\Block\Adminhtml\ModuleVersion</frontend_model>
                 </field>
-                <field id="debug" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="debug" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Debug</label>
                     <comment>If Yes, Magento will log all requests.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -55,17 +55,17 @@
                     <label>Site ID</label>
                     <comment>If present, this will override the server's hostname</comment>
                 </field>
-                <field id="usecron" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="usecron" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Use Cron</label>
                     <comment>If Yes, will use cron system for order reporting</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="trigger_all_status" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="trigger_all_status" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Trigger on All Order Status</label>
                     <comment>If yes, Magento will send all the statuses to Katalys via Observer.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="trigger" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                <field id="trigger" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
                     <label>Trigger on Order Status</label>
                     <comment>When to queue/send the data about the order</comment>
                     <source_model>Katalys\Shop\Model\Config\Source\TriggerOptions::toOptionArray</source_model>
