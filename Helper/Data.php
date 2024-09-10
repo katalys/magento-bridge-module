@@ -154,6 +154,10 @@ class Data extends AbstractHelper
             return "cancelled";
         } elseif ($orderStatus == "closed") {
             return "refunded";
+        } elseif ($orderStatus === 'complete') {
+            return "fulfilled";
+        } elseif ($orderStatus === 'processing') {
+            return "pending";
         } else {
             return $orderStatus;
         }
